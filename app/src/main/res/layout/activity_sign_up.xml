@@ -22,6 +22,7 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
+
         android:entries="@array/sex"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/spinner_std" />
@@ -36,12 +37,12 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_sex" />
 
     <EditText
-        android:id="@+id/name_signup"
+        android:id="@+id/id_signup"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/password_signup" />
+        android:layout_marginTop="200dp"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/password_signup"
@@ -52,19 +53,20 @@
         app:layout_constraintTop_toBottomOf="@+id/id_signup" />
 
     <EditText
-        android:id="@+id/id_signup"
+        android:id="@+id/name_signup"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:layout_marginTop="200dp"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/password_signup" />
+
 
     <ImageView
         android:id="@+id/duplication"
         android:layout_width="64dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="208dp"
         app:layout_constraintStart_toEndOf="@+id/id_signup"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/duplication" />
