@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background_sign_up"
+    tools:context=".Sign_upActivity">
+
+
+    <Spinner
+        android:id="@+id/spinner_std"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="216dp"
+        android:entries="@array/std_age"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_signup" />
+
+    <Spinner
+        android:id="@+id/spinner_sex"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="216dp"
+        android:entries="@array/sex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_std" />
+    <Spinner
+        android:id="@+id/spinner_dep"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="216dp"
+        android:entries="@array/department"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_sex" />
+    <EditText
+        android:id="@+id/name_signup"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_signup" />
+
+    <EditText
+        android:id="@+id/password_signup"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="86dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_signup" />
+
+    <EditText
+        android:id="@+id/id_signup"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="86dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/duplication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="239dp"
+        android:layout_marginEnd="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/id_signup"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/duplication" />
+
+    <ImageView
+        android:id="@+id/signup"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="233dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_signup"
+        app:srcCompat="@mipmap/signup" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

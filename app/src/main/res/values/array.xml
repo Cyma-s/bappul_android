@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="std_age">
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+    </string-array>
+    <string-array name="sex">
+        <item>남자</item>
+        <item>여자</item>
+    </string-array>
+    <string-array name="department">
+        <item>국어국문학과</item>
+        <item>영어영문학과</item>
+        <item>유럽문화학부</item>
+        <item>아시아문화학부</item>
+        <item>철학과</item>
+        <item>역사학과</item>
+        <item>정치국제학과</item>
+        <item>공공인재학부</item>
+        <item>심리학과</item>
+        <item>문헌정보학과</item>
+        <item>사회복지학부</item>
+        <item>미디어커뮤니케이션학부</item>
+        <item>교육학과</item>
+        <item>유아교육과</item>
+        <item>영어교육과</item>
+        <item>체육교육과</item>
+        <item>물리학과</item>
+        <item>화학과</item>
+        <item>생명과학과</item>
+        <item>수학과</item>
+        <item>생명자원공학부</item>
+        <item>식품공학부</item>
+        <item>시스템생명공학과</item>
+        <item>사회기반시스템공학부</item>
+        <item>건축학부</item>
+        <item>화학신소재공학부</item>
+        <item>기계공학부</item>
+        <item>에너지시스템공학부</item>
+        <item>첨단소재공학과</item>
+        <item>전자전기공학부</item>
+        <item>융합공학부</item>
+        <item>융합교양학부</item>
+        <item>소프트웨어학부</item>
+        <item>AI학과</item>
+        <item>경영학부</item>
+        <item>경제학부</item>
+        <item>응용통계학과</item>
+        <item>광고홍보학과</item>
+        <item>국제물류학과</item>
+        <item>지식경영학부</item>
+        <item>산업보안학과</item>
+        <item>의학부</item>
+        <item>약학부</item>
+        <item>간호학과</item>
+        <item>공연영상창작학부</item>
+        <item>미술학부</item>
+        <item>디자인학부</item>
+        <item>음악학부</item>
+        <item>전통예술학부</item>
+        <item>글로벌예술학부</item>
+        <item>컴퓨터예술학부</item>
+        <item>스포츠과학부</item>
+    </string-array>
+    
+    
+</resources>
