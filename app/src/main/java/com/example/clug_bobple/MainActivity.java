@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_sign_up = new Intent(MainActivity.this, Sign_upActivity.class);
-                startActivity(intent_sign_up);
+                Intent intent_auth = new Intent(MainActivity.this, EmailAuthenticationActivity.class);
+                startActivity(intent_auth);
             }
         });
 

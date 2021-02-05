@@ -23,6 +23,7 @@ public class Sign_upActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         duplication = (ImageView)findViewById(R.id.duplication);
         signup = (ImageView) findViewById(R.id.signup);
         name_signup = (EditText)findViewById(R.id.name_signup);
