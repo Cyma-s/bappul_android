@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import java.io.IOError;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -53,6 +54,26 @@ public class Sign_upActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String id = id_signup.getText().toString();
+                String url = getString(R.string.url) + "/users/authentication/" +id;
+
+                RequestQueue queue = Volley.newRequestQueue(Sign_upActivity.this);
+                final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>(){
+                            @Override
+                            public void onResponse(String response) {
+                                System.out.println(response);
+                                if(response.equals("true"))
+                                    Toast.makeText(Sign_upActivity.this, "사용 가능한 아이디 입니다.", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(Sign_upActivity.this, "이미 사용중인 아이디입니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Sign_upActivity.this, "오류입니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                queue.add(stringRequest);
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
@@ -65,32 +86,34 @@ public class Sign_upActivity extends AppCompatActivity {
                 String sex = spinner_sex.getSelectedItem().toString();
                 String dep = spinner_dep.getSelectedItem().toString();
 
-                JSONObject testjson = new JSONObject();
+                JSONObject userJson = new JSONObject();
                 try{
-                    testjson.put("id", id);
-                    testjson.put("password", password);
-                    testjson.put("name", name);
-                    testjson.put("entranceYear", std_num);
-                    testjson.put("gender", sex);
-                    testjson.put("department", dep);
+                    userJson.put("id", id);
+                    userJson.put("password", password);
+                    userJson.put("name", name);
+                    userJson.put("entranceYear", std_num);
+                    userJson.put("gender", sex);
+                    userJson.put("department", dep);
+                    userJson.put("mailAddress", user_adderess);
+                    System.out.println(user_adderess);
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
 
                 RequestQueue queue = Volley.newRequestQueue(Sign_upActivity.this);
-                String url = "http://580aae36ebac.ngrok.io/users";
+                String url = getString(R.string.url)+"/users";
 
-                final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, testjson,
+                final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, userJson,
                     new Response.Listener<JSONObject>(){
                         @Override
                         public void onResponse(JSONObject response) {
-                            Toast.makeText(Sign_upActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                             try {
                                 if (response.get("answer").toString().equals("true")){
+                                    Toast.makeText(Sign_upActivity.this, "회원가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
                                     Intent intent1 = new Intent(Sign_upActivity.this, LoginActivity.class);
                                     startActivity(intent1);
                                 } else {
-                                    Toast.makeText(Sign_upActivity.this, "옳지 않은 접근입니다.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Sign_upActivity.this, "이미 사용중인 아이디입니다.", Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
