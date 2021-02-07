@@ -20,7 +20,7 @@ public class EmailAuthenticationActivity  extends AppCompatActivity {
     TextView email_address, auth_number, time;
     EditText email_address_text, auth_number_text;
     ImageView email_confirm, auth_button;
-    String code;
+    String code, address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +43,11 @@ public class EmailAuthenticationActivity  extends AppCompatActivity {
         email_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String address = email_address_text.getText().toString();
+                address = email_address_text.getText().toString();
 
                 if (Pattern.matches("^[a-zA-Z0-9]+@[cau.ac.kr]+$", address)) {
                     auth_number_text.setVisibility(View.VISIBLE);
                     auth_number.setVisibility(View.VISIBLE);
-                    time.setVisibility(View.VISIBLE);
                     auth_button.setVisibility(View.VISIBLE);
 
                     SendMail mailServer = new SendMail();
@@ -66,6 +65,7 @@ public class EmailAuthenticationActivity  extends AppCompatActivity {
                 String user_code = auth_number_text.getText().toString();
                 if (user_code.equals(code)){
                     Intent intent_sign_up = new Intent(EmailAuthenticationActivity.this, Sign_upActivity.class);
+                    intent_sign_up.putExtra("address", address);
                     startActivity(intent_sign_up);
                 } else{
                     Toast.makeText(EmailAuthenticationActivity.this, "인증번호가 다릅니다.", Toast.LENGTH_SHORT).show();

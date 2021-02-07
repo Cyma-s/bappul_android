@@ -3,6 +3,7 @@
     package="com.example.clug_bobple">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,9 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CLUG_Bobple">
+        <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".EmailAuthenticationActivity"/>
+        <activity android:name=".EmailAuthenticationActivity" />
         <activity android:name=".Sign_upActivity" />
+        <activity android:name=".UserReviewActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
