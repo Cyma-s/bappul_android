@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String id = user_id.getText().toString();
                 String password = user_password.getText().toString();
 
