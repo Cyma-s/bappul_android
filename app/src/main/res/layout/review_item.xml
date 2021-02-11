@@ -35,29 +35,52 @@
                     android:orientation="horizontal"
                     >
 
-                    <TextView
-                        android:id="@+id/user_name_review"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/spb"
-                        android:paddingStart="6dp"
-                        android:paddingTop="2dp"
-                        android:textColor="#000000"
-                        android:textStyle="normal"
-                        android:text="이름"
-                        android:textSize="15sp"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RatingBar
+                            android:id="@+id/star_rate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:numStars="5"
+                            android:stepSize="1"
+                            android:rating="3"
+                            android:max="5"
+                            android:isIndicator="true"
+                            android:layout_gravity="center"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            />
+
+                        <TextView
+                            android:id="@+id/user_name_review"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spb"
+                            android:paddingStart="3dp"
+                            android:paddingTop="2dp"
+                            android:textColor="#6C6C6C"
+                            android:textStyle="normal"
+                            android:text="이름"
+                            android:textSize="10sp"/>
+
+                    </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/review_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="6dp"
-                        android:gravity="fill_vertical"
+                        android:paddingTop="6dp"
+                        android:paddingStart="5dp"
+                        android:gravity="top"
                         android:fontFamily="@font/spb"
                         android:textStyle="normal"
                         android:textColor="#B5B5B5"
                         android:text="2월 23일"
-                        android:textSize="10sp" />
+                        android:textSize="8sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -75,7 +98,7 @@
                         android:ellipsize="end"
                         android:text="안녕하세요"
                         android:textColor="#000000"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="normal" />
 
                 </LinearLayout>

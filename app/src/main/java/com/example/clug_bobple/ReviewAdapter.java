@@ -3,6 +3,7 @@ package com.example.clug_bobple;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,6 +68,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         TextView name;
         TextView date;
         TextView content;
+        RatingBar star_rate;
 
         public boolean isEllipsis(TextView textView){
             // 1이 나오면 글씨가 줄여졌다는 뜻
@@ -82,6 +84,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             name = itemView.findViewById(R.id.user_name_review);
             date = itemView.findViewById(R.id.review_date);
             content = itemView.findViewById(R.id.review_content);
+            star_rate = itemView.findViewById(R.id.star_rate);
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -103,6 +106,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             name.setText(review.getName());
             date.setText(review.getDate());
             content.setText(review.getContent());
+            star_rate.setRating(review.getStar_rate());
         }
     }
 }
