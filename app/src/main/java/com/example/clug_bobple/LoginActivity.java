@@ -52,6 +52,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String id = user_id.getText().toString();
                 String password = user_password.getText().toString();
+
+                Intent intent = new Intent(LoginActivity.this, UserReviewActivity.class);
+                startActivity(intent);
+
                 JSONObject infoForLogin = new JSONObject();
                 try {
                     infoForLogin.put("id", id);
