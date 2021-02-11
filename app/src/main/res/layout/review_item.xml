@@ -46,11 +46,12 @@
                             android:paddingTop="5dp"
                             android:numStars="5"
                             android:stepSize="1"
-                            android:rating="3"
+                            android:rating="0"
                             android:max="5"
                             android:isIndicator="true"
                             android:layout_gravity="center"
                             style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:theme="@style/RatingBar"
                             />
 
                         <TextView

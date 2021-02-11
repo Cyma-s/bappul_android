@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ReviewWriteActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back_button_write"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/back_button" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/review_write_button"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/write_review_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:stepSize="1"
+        android:rating="0"
+        android:max="5"
+        style="@style/Widget.AppCompat.RatingBar"
+        android:theme="@style/RatingBar"
+        />
+
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/line" />
+
+    <EditText
+        android:id="@+id/review_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/spb"
+        android:textStyle="normal"
+        android:hint="이 음식점의 어떤 점이 마음에 드셨나요?"
+        android:textSize="15sp"
+        />
+
+</LinearLayout>

@@ -21,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
         list_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, UserReviewActivity.class);
+                Intent intent = new Intent(HomeActivity.this, ReviewWriteActivity.class);
                 startActivity(intent);
             }
         });
