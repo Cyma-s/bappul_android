@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 String id = user_id.getText().toString();
                 String password = user_password.getText().toString();
 
-                Intent intent = new Intent(LoginActivity.this, UserReviewActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
 
                 JSONObject infoForLogin = new JSONObject();
