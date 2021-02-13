@@ -4,8 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.app.FragmentManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -13,6 +23,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,7 +52,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Activi
         fragmentManager = getFragmentManager();
         mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
     }
 
     @Override
@@ -52,18 +65,23 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Activi
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
         showPlaceInformation(location);
-    }
 
+        this.mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                getMostRecentReview(marker);
+                return false;
+            }
+        });
+    }
     @Override
     public void onPlacesFailure(PlacesException e) {
 
     }
-
     @Override
     public void onPlacesStart() {
 
     }
-
     @Override
     public void onPlacesSuccess(List<Place> places) {
         runOnUiThread(new Runnable() {
@@ -92,7 +110,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Activi
             }
         });
     }
-
     @Override
     public void onPlacesFinished() {
 
@@ -112,5 +129,41 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Activi
                 .type(PlaceType.RESTAURANT) //음식점
                 .build()
                 .execute();
+    }
+
+    private void getMostRecentReview(Marker marker) {
+        String url = getString(R.string.url) + "/restaurant/" + marker.getTitle() + "/reviews/review";
+        RequestQueue queue = Volley.newRequestQueue(Map.this);
+
+        JSONObject location = new JSONObject();
+        try {
+            location.put("lat", Double.toString(marker.getPosition().latitude));
+            location.put("long", Double.toString(marker.getPosition().longitude));
+        } catch (JSONException exception) {
+            exception.printStackTrace();
+        }
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, location,
+                new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        TextView name = findViewById(R.id.name);
+                        TextView stdnum = findViewById(R.id.stdnum);
+                        TextView review = findViewById(R.id.review);
+
+                        try {
+                            name.setText(response.get("userName").toString());
+                            stdnum.setText(response.get("userEntranceYear").toString() + "학번");
+                            review.setText(response.get("content").toString());
+                        } catch (JSONException exception) {
+                            exception.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Map.this, "아직 후기글이 없어요. 첫번째 후기를 적어주세요:)", Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(jsonObjectRequest);
     }
 }
