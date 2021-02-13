@@ -150,12 +150,12 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                     @Override
                     public void onResponse(JSONObject response) {
                         TextView name = findViewById(R.id.name);
-                        TextView stdnum = findViewById(R.id.stdnum);
+                        TextView review_date = findViewById(R.id.review_date);
                         TextView review = findViewById(R.id.review);
 
                         try {
                             name.setText(response.get("userName").toString());
-                            stdnum.setText(response.get("userEntranceYear").toString() + "학번");
+                            review_date.setText(response.get("date").toString());
                             review.setText(response.get("content").toString());
                         } catch (JSONException exception) {
                             exception.printStackTrace();

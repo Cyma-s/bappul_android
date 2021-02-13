@@ -13,17 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CLUG_Bobple">
-        <activity android:name=".GMap" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".EmailAuthenticationActivity" />
-        <activity android:name=".Sign_upActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".GMap">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".EmailAuthenticationActivity" />
+        <activity android:name=".Sign_upActivity" />
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
