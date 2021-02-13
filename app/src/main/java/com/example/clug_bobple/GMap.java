@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,8 +30,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+//import java.util.Map;
 
 import noman.googleplaces.NRPlaces;
 import noman.googleplaces.Place;
@@ -38,7 +42,7 @@ import noman.googleplaces.PlaceType;
 import noman.googleplaces.PlacesException;
 import noman.googleplaces.PlacesListener;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, PlacesListener {
+public class GMap extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, PlacesListener {
     List<Marker> previous_marker = new ArrayList<>();
     GoogleMap mMap;
     private FragmentManager fragmentManager;
@@ -122,7 +126,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Activi
             previous_marker.clear();//지역정보 마커 클리어
 
         new NRPlaces.Builder()
-                .listener(Map.this)
+                .listener(GMap.this)
                 .key("AIzaSyCKx9eXDOXbFukMXevz0wTO3wSxyXGoY8A")
                 .latlng(location.latitude, location.longitude)//현재 위치
                 .radius(500) //500 미터 내에서 검색
@@ -133,7 +137,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Activi
 
     private void getMostRecentReview(Marker marker) {
         String url = getString(R.string.url) + "/restaurant/" + marker.getTitle() + "/reviews/review";
-        RequestQueue queue = Volley.newRequestQueue(Map.this);
+        RequestQueue queue = Volley.newRequestQueue(GMap.this);
 
         JSONObject location = new JSONObject();
         try {
@@ -161,7 +165,29 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Activi
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Map.this, "아직 후기글이 없어요. 첫번째 후기를 적어주세요:)", Toast.LENGTH_SHORT).show();
+                String url = getString(R.string.url) + "/profile";
+                SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+                String token = sharedPreferences.getString("Authorization", "");
+
+                final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>(){
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Toast.makeText(GMap.this, response.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(GMap.this, "오류입니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String,String> heads = new HashMap<String, String>();
+                        heads.put("Authorization", "Bearer "+ token);
+                        return heads;
+                    }
+                };
             }
         });
         queue.add(jsonObjectRequest);
