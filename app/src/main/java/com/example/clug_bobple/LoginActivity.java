@@ -35,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+
         user_id = (EditText) findViewById(R.id.user_id);
         user_password = (EditText)findViewById(R.id.user_password);
         logintosignup = (ImageView)findViewById(R.id.logintosignup);
@@ -53,9 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                 String id = user_id.getText().toString();
                 String password = user_password.getText().toString();
 
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
-
                 JSONObject infoForLogin = new JSONObject();
                 try {
                     infoForLogin.put("id", id);
@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             saveToken(response);
+
                         } catch (JSONException exception) {
                             exception.printStackTrace();
                         }
@@ -105,13 +106,13 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent logIn = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent logIn = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(logIn);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, "오류입니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "오류오류오류입니다.", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

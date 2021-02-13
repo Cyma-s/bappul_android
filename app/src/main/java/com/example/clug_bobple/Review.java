@@ -1,6 +1,9 @@
 package com.example.clug_bobple;
 
 public class Review {
+    //public Review(Object userName, Object date, Object content, Object rate) {
+    //}
+
     public String getName() {
         return name;
     }

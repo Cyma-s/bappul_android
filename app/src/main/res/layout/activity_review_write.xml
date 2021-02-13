@@ -61,15 +61,14 @@
 
     <EditText
         android:id="@+id/review_content"
-        android:layout_width="match_parent"
+        android:layout_width="372dp"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:layout_marginTop="18dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="18dp"
+        android:background="@null"
         android:fontFamily="@font/spb"
-        android:textStyle="normal"
         android:hint="이 음식점의 어떤 점이 마음에 드셨나요?"
         android:textSize="15sp"
-        />
+        android:textStyle="normal" />
 
 </LinearLayout>
