@@ -30,6 +30,7 @@ import org.json.JSONObject;
 public class UserReviewActivity extends AppCompatActivity {
     int len, cnt = 1;
     ImageView more_review_db;
+    String url;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +57,8 @@ public class UserReviewActivity extends AppCompatActivity {
             exception.printStackTrace();
         }
 
-        String url = getString(R.string.url) + "/restaurant/" + name + "/reviews/" + Integer.toString(cnt);
+        url = getString(R.string.url) + "/restaurant/" + name + "/reviews/" + Integer.toString(cnt);
+        Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
         RequestQueue queue = Volley.newRequestQueue(UserReviewActivity.this);
 
         more_review_db = findViewById(R.id.more_review_db);
@@ -66,7 +68,6 @@ public class UserReviewActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     len = (int) response.get("length");
-
                     JSONArray reviews = response.getJSONArray("reviews");
 
                     for (int i = 0; i < len; i++) {
@@ -77,6 +78,7 @@ public class UserReviewActivity extends AppCompatActivity {
                             if (i == len-1) cnt += 1;
                         }
                     }
+                    recyclerView.setAdapter(adapter);
 
                 } catch (JSONException exception) {
                     exception.printStackTrace();
@@ -95,18 +97,28 @@ public class UserReviewActivity extends AppCompatActivity {
         more_review_db.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                url = getString(R.string.url) + "/restaurant/" + name + "/reviews/" + Integer.toString(cnt);
+                Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
+
                 final JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest(Request.Method.POST, url, reviewItems, new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
                             len = (int) response.get("length");
                             JSONArray reviews = response.getJSONArray("reviews");
+
+                            if (len == 0){
+                                Toast.makeText(UserReviewActivity.this, "마지막 리뷰입니다.", Toast.LENGTH_SHORT).show();
+                            }
+
                             for (int i = 0; i<len; i++){
                                 JSONObject more_review = reviews.getJSONObject(i);
                                 adapter.addItem(new Review(more_review.get("name").toString(), more_review.get("date").toString(),
                                         more_review.get("content").toString(), Integer.parseInt(more_review.get("rate").toString())));
                                 if (i == len-1) cnt += 1;
                             }
+
+                            recyclerView.setAdapter(adapter);
                         } catch (JSONException exception) {
                             exception.printStackTrace();
                         }
@@ -121,19 +133,6 @@ public class UserReviewActivity extends AppCompatActivity {
                 queue.add(jsonObjectRequest1);
             }
         });
-
-        /*adapter.addItem(new Review("김은솔", "2월 4일", "안녕하세요", 4));
-        adapter.addItem(new Review("김재훈", "1월 4일", "안녕하세요ㅎㅇ", 1));
-        adapter.addItem(new Review("전성수", "3월 4일", "안녕하세요ㅋ", 2));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋㄹㄴㅁㅇㄻㄴㅇㄹㅋㄹㅋㅇㄴㄹㅋㄴㅇㄹㅋㄴㅇㄹㄴㅋㄹㅋㄴㅇㄹㅋㄴㄹㅋㄴㄹㅇㅋㄴㄹ", 5));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
-*/
 
         recyclerView.setAdapter(adapter);
 
