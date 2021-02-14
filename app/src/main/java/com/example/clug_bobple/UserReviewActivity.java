@@ -24,22 +24,18 @@ public class UserReviewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         ReviewAdapter adapter = new ReviewAdapter();
 
-        adapter.addItem(new Review("김은솔", "2월 4일", "안녕하세요"));
-        adapter.addItem(new Review("김재훈", "1월 4일", "안녕하세요ㅎㅇ"));
-        adapter.addItem(new Review("전성수", "3월 4일", "안녕하세요ㅋ"));
-        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ"));
-        adapter.addItem(new Review("김민", "2월 4일", "안녕하세요!"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇsdfasdhfkljahsklejhfkljashefjkldhasjklfhalkjsdhflkㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
-        adapter.addItem(new Review("김윤", "2월 4일", "안녕하세요ㅇㅇ"));
+        adapter.addItem(new Review("김은솔", "2월 4일", "안녕하세요", 4));
+        adapter.addItem(new Review("김재훈", "1월 4일", "안녕하세요ㅎㅇ", 1));
+        adapter.addItem(new Review("전성수", "3월 4일", "안녕하세요ㅋ", 2));
+        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
+        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
+        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
+        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
+        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋㄹㄴㅁㅇㄻㄴㅇㄹㅋㄹㅋㅇㄴㄹㅋㄴㅇㄹㅋㄴㅇㄹㄴㅋㄹㅋㄴㅇㄹㅋㄴㄹㅋㄴㄹㅇㅋㄴㄹ", 5));
+        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
+        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
+        adapter.addItem(new Review("김은재", "6월 4일", "안녕하세요ㅋㅋ", 5));
+
 
         recyclerView.setAdapter(adapter);
 

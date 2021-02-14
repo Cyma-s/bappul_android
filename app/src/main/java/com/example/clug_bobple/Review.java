@@ -25,14 +25,23 @@ public class Review {
         this.content = content;
     }
 
-    public Review(String name, String date, String content) {
+    public int getStar_rate() {
+        return star_rate;
+    }
+
+    public void setStar_rate(int star_rate) {
+        this.star_rate = star_rate;
+    }
+
+    public Review(String name, String date, String content, int star_rate) {
         this.name = name;
         this.date = date;
         this.content = content;
+        this.star_rate = star_rate;
     }
 
     String name;
     String date;
     String content;
-
+    int star_rate;
 }
