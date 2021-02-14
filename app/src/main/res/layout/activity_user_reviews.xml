@@ -44,24 +44,9 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="603dp"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="549dp" />
-
-        <ImageView
-            android:id="@+id/more_review_db"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/more_review_db" />
-
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

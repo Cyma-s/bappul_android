@@ -1,13 +1,17 @@
 package com.example.clug_bobple;
 
 import android.app.Person;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +35,9 @@ public class UserReviewActivity extends AppCompatActivity {
     int len, cnt = 1;
     ImageView more_review_db;
     String url;
+    //int mScrollPosition;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +67,6 @@ public class UserReviewActivity extends AppCompatActivity {
         Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
         RequestQueue queue = Volley.newRequestQueue(UserReviewActivity.this);
 
-        more_review_db = findViewById(R.id.more_review_db);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, reviewItems, new Response.Listener<JSONObject>() {
             @Override
@@ -71,14 +76,16 @@ public class UserReviewActivity extends AppCompatActivity {
                     JSONArray reviews = response.getJSONArray("reviews");
 
                     for (int i = 0; i < len; i++) {
-                        if (cnt == 1){
+                        if (cnt == 1) {
                             JSONObject object = reviews.getJSONObject(i);
                             adapter.addItem(new Review(object.get("name").toString(), object.get("date").toString(),
                                     object.get("content").toString(), Integer.parseInt(object.get("rate").toString())));
-                            if (i == len-1) cnt += 1;
+                            if (i == len - 1) cnt += 1;
                         }
                     }
+
                     recyclerView.setAdapter(adapter);
+                    //mScrollPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
 
                 } catch (JSONException exception) {
                     exception.printStackTrace();
@@ -93,44 +100,47 @@ public class UserReviewActivity extends AppCompatActivity {
 
         queue.add(jsonObjectRequest);
 
-
-        more_review_db.setOnClickListener(new View.OnClickListener() {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
-            public void onClick(View v) {
-                url = getString(R.string.url) + "/restaurant/" + name + "/reviews/" + Integer.toString(cnt);
-                Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
 
-                final JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest(Request.Method.POST, url, reviewItems, new Response.Listener<JSONObject>(){
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try{
-                            len = (int) response.get("length");
-                            JSONArray reviews = response.getJSONArray("reviews");
+                if (!recyclerView.canScrollVertically(1)){
+                    url = getString(R.string.url) + "/restaurant/" + name + "/reviews/" + Integer.toString(cnt);
+                    Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
 
-                            if (len == 0){
+                    if (len == 0){
+                        //Toast.makeText(UserReviewActivity.this, "마지막 리뷰입니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        final JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest(Request.Method.POST, url, reviewItems, new Response.Listener<JSONObject>(){
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try{
+                                    len = (int) response.get("length");
+                                    JSONArray reviews = response.getJSONArray("reviews");
+
+                                    for (int i = 0; i<len; i++){
+                                        JSONObject more_review = reviews.getJSONObject(i);
+                                        adapter.addItem(new Review(more_review.get("name").toString(), more_review.get("date").toString(),
+                                                more_review.get("content").toString(), Integer.parseInt(more_review.get("rate").toString())));
+                                        if (i == len-1) cnt += 1;
+                                    }
+                                    recyclerView.smoothScrollToPosition(adapter.getItemCount()-1-len);
+                                    recyclerView.setAdapter(adapter);
+                                } catch (JSONException exception) {
+                                    exception.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
                                 Toast.makeText(UserReviewActivity.this, "마지막 리뷰입니다.", Toast.LENGTH_SHORT).show();
                             }
+                        });
 
-                            for (int i = 0; i<len; i++){
-                                JSONObject more_review = reviews.getJSONObject(i);
-                                adapter.addItem(new Review(more_review.get("name").toString(), more_review.get("date").toString(),
-                                        more_review.get("content").toString(), Integer.parseInt(more_review.get("rate").toString())));
-                                if (i == len-1) cnt += 1;
-                            }
-
-                            recyclerView.setAdapter(adapter);
-                        } catch (JSONException exception) {
-                            exception.printStackTrace();
-                        }
+                        queue.add(jsonObjectRequest1);
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(UserReviewActivity.this, "마지막 리뷰입니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                queue.add(jsonObjectRequest1);
+                }
             }
         });
 
