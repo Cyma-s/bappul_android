@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -152,11 +153,13 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                         TextView name = findViewById(R.id.name);
                         TextView review_date = findViewById(R.id.review_date);
                         TextView review = findViewById(R.id.review);
+                        RatingBar star_rate = findViewById(R.id.star_rate);
 
                         try {
-                            name.setText(response.get("userName").toString());
+                            name.setText(response.get("name").toString());
                             review_date.setText(response.get("date").toString());
                             review.setText(response.get("content").toString());
+                            star_rate.setRating(Integer.parseInt(response.get("rate").toString()));
                         } catch (JSONException exception) {
                             exception.printStackTrace();
                         }
@@ -164,29 +167,18 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String url = getString(R.string.url) + "/profile";
-                SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
-                String token = sharedPreferences.getString("Authorization", "");
+                TextView name = findViewById(R.id.name);
+                TextView review_date = findViewById(R.id.review_date);
+                TextView review = findViewById(R.id.review);
+                RatingBar star_rate = findViewById(R.id.star_rate);
 
-                final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>(){
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Toast.makeText(GMap.this, response.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(GMap.this, "오류입니다.", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String,String> heads = new HashMap<String, String>();
-                        heads.put("Authorization", "Bearer "+ token);
-                        return heads;
-                    }
-                };
+                name.setText("");
+                review_date.setText("");
+                star_rate.setRating(0);
+                review.setText("아직 후기가 없어요. 첫번째 후기를 달아주세요:)");
+
+
+
             }
         });
         queue.add(jsonObjectRequest);
