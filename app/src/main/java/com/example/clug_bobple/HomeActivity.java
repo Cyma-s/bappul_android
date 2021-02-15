@@ -1,15 +1,19 @@
 package com.example.clug_bobple;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import org.w3c.dom.Text;
 
 public class HomeActivity extends AppCompatActivity {
     private DrawerLayout home_layout;
@@ -29,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
                 home_layout.openDrawer(navigation);
             }
         });
+
 
         home_layout.setDrawerListener(listener);
         navigation.setOnTouchListener(new View.OnTouchListener() {
