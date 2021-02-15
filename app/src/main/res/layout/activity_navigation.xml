@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="8dp">
             <androidx.cardview.widget.CardView
                 app:cardCornerRadius="100dp"
                 android:layout_gravity="center"
@@ -36,20 +36,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="12dp">
+                android:layout_marginLeft="8dp">
                 <TextView
                     android:id="@+id/user_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
                     android:fontFamily="@font/spb"
-                    android:textStyle="normal"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
                     android:text="사용자"
                     android:textSize="16dp" />
                 <TextView
                     android:id="@+id/user_stdnum"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/spb"
+                    android:textStyle="normal"
                     android:singleLine="true"
                     android:text="20학번"
                     android:textSize="8dp"/>
@@ -60,11 +63,15 @@
 
         <TextView
             android:id="@+id/home"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:text="   홈"
+            android:fontFamily="@font/spb"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:textColor="@color/bappul_brown"
+            android:text="홈"
             android:textSize="17dp">
 
         </TextView>
@@ -73,8 +80,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:text="   내 글 보기"
-            android:textSize="17dp">
+            android:fontFamily="@font/spb"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:textColor="@color/bappul_brown"
+            android:text="내 글 보기"
+            android:textSize="17sp">
 
         </TextView>
         <TextView
@@ -82,8 +93,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:text="   맛집 둘러보기"
-            android:textSize="17dp">
+            android:fontFamily="@font/spb"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:textColor="@color/bappul_brown"
+            android:text="맛집 둘러보기"
+            android:textSize="17sp">
 
         </TextView>
         <TextView
@@ -91,8 +106,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:text="   밥약 잡아보기"
-            android:textSize="17dp">
+            android:fontFamily="@font/spb"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:textColor="@color/bappul_brown"
+            android:text="밥약 잡아보기"
+            android:textSize="17sp">
 
         </TextView>
         <TextView
@@ -100,8 +119,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:text="   로그아웃"
-            android:textSize="17dp">
+            android:fontFamily="@font/spb"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:textColor="@color/bappul_brown"
+            android:text="로그아웃"
+            android:textSize="17sp">
 
         </TextView>
     </LinearLayout>

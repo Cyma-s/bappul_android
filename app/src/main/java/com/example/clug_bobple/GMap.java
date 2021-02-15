@@ -2,6 +2,7 @@ package com.example.clug_bobple;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -183,6 +184,14 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                 .execute();
     }
 
+    public boolean isEllipsis(TextView textView){
+        // 1이 나오면 글씨가 줄여졌다는 뜻
+        if (textView.getLayout() != null){
+            return textView.getLayout().getEllipsisCount(textView.getLineCount() - 1) > 0;
+        }
+        return false;
+    }
+
     private void getMostRecentReview(Marker marker) {
         String url = getString(R.string.url) + "/restaurant/" + marker.getTitle() + "/reviews/review";
         RequestQueue queue = Volley.newRequestQueue(GMap.this);
@@ -208,6 +217,18 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                             review_date.setText(response.get("date").toString());
                             review.setText(response.get("content").toString());
                             star_rate.setRating(Integer.parseInt(response.get("rate").toString()));
+
+                            review.setOnClickListener(new View.OnClickListener(){
+                                @Override
+                                public void onClick(View v) {
+                                    if (isEllipsis(review)){
+                                        review.setSingleLine(false);
+                                    } else {
+                                        review.setSingleLine(true);
+                                    }
+                                }
+                            });
+
                         } catch (JSONException exception) {
                             exception.printStackTrace();
                         }
@@ -223,9 +244,7 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                 name.setText("");
                 review_date.setText("");
                 star_rate.setRating(0);
-                review.setText("아직 후기가 없어요. 첫번째 후기를 달아주세요:)");
-
-
+                review.setText("아직 후기가 없어요. 첫번째 후기를 달아주세요 :)");
 
             }
         });
