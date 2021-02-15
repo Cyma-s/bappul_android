@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_login = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intent_login = new Intent(MainActivity.this, GMap.class);
                 startActivity(intent_login);
             }
         });

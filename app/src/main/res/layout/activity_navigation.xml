@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:id="@+id/navigation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#FFFFFFFF"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    app:cardCornerRadius="100dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/user_image"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:padding="5dp"
+                        android:src="@mipmap/ic_launcher"/>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="12dp">
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/spb"
+                        android:textStyle="normal"
+                        android:text="사용자"
+                        android:textSize="16dp" />
+                    <TextView
+                        android:id="@+id/user_stdnum"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/spb"
+                        android:singleLine="true"
+                        android:text="20학번"
+                        android:textSize="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/home"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="   홈"
+            android:textSize="17dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/my_writing"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="   내 글 보기"
+            android:textSize="17dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/to_restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="   맛집 둘러보기"
+            android:textSize="17dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/promise"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="   밥약 잡아보기"
+            android:textSize="17dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:text="   로그아웃"
+            android:textSize="17dp">
+
+        </TextView>
+
+
+    </LinearLayout>
+
+</LinearLayout>

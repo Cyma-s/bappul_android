@@ -1,12 +1,17 @@
 package com.example.clug_bobple;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +48,10 @@ import noman.googleplaces.PlacesException;
 import noman.googleplaces.PlacesListener;
 
 public class GMap extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, PlacesListener {
+    private DrawerLayout map_layout;
+    private View navigation;
+    private ImageView menu;
+
     List<Marker> previous_marker = new ArrayList<>();
     GoogleMap mMap;
     private FragmentManager fragmentManager;
@@ -56,8 +65,47 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
         fragmentManager = getFragmentManager();
         mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
 
+        map_layout = (DrawerLayout)findViewById(R.id.map_layout);
+        navigation = (View)findViewById(R.id.navigation);
+        menu = (ImageView)findViewById(R.id.menu);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map_layout.openDrawer(navigation);
+            }
+        });
+
+        map_layout.setDrawerListener(listener);
+        navigation.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+    }
+    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+
+        }
+    };
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
