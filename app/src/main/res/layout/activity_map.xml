@@ -136,6 +136,5 @@
 
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-
-    <include layout="@layout/activity_navigation" />
+    <include layout="@layout/activity_navigation"/>
 </androidx.drawerlayout.widget.DrawerLayout>
