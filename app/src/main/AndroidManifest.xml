@@ -13,18 +13,21 @@
         android:roundIcon="@mipmap/ic_bappul_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CLUG_Bobple">
-        <activity android:name=".ReviewWriteActivity"/>
+        <activity android:name=".bapyak_write">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ReviewWriteActivity" />
         <activity android:name=".UserReviewActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".EmailAuthenticationActivity" />
         <activity android:name=".Sign_upActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
