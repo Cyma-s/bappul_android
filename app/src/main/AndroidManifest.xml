@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_bappul_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CLUG_Bobple">
+        <activity android:name=".ReviewWriteActivity"/>
         <activity android:name=".HomeActivity" />
         <activity android:name=".GMap"/>
         <activity android:name=".UserReviewActivity" />

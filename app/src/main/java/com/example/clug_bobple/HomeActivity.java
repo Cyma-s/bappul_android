@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import org.w3c.dom.Text;
 
 public class HomeActivity extends AppCompatActivity {
+    ImageView list_button;
     private DrawerLayout home_layout;
     private View navigation;
     private ImageView menu_button;
@@ -24,6 +25,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        list_button = (ImageView)findViewById(R.id.list_button);
+        list_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ReviewWriteActivity.class);
+                startActivity(intent);
+            }
+        });
         home_layout = (DrawerLayout)findViewById(R.id.home_layout);
         navigation = (View)findViewById(R.id.navigation);
         menu_button = (ImageView)findViewById(R.id.menu_button);
