@@ -52,6 +52,9 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
     private DrawerLayout map_layout;
     private View navigation;
     private ImageView menu;
+    private ImageView moreReview;
+    private double lat, lon;
+    private String name;
 
     List<Marker> previous_marker = new ArrayList<>();
     GoogleMap mMap;
@@ -69,6 +72,17 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
 
         map_layout = (DrawerLayout)findViewById(R.id.map_layout);
         navigation = (View)findViewById(R.id.navigation);
+        moreReview = (ImageView)findViewById(R.id.moreReview);
+        moreReview.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GMap.this, UserReviewActivity.class);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lon", lon);
+                intent.putExtra("name", name);
+                startActivity(intent);
+            }
+        });
         menu = (ImageView)findViewById(R.id.menu);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,10 +210,14 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
         String url = getString(R.string.url) + "/restaurant/" + marker.getTitle() + "/reviews/review";
         RequestQueue queue = Volley.newRequestQueue(GMap.this);
 
+        lat = marker.getPosition().latitude;
+        lon = marker.getPosition().longitude;
+        name = marker.getTitle();
+
         JSONObject location = new JSONObject();
         try {
-            location.put("lat", Double.toString(marker.getPosition().latitude));
-            location.put("long", Double.toString(marker.getPosition().longitude));
+            location.put("lat", Double.toString(lat));
+            location.put("long", Double.toString(lon));
         } catch (JSONException exception) {
             exception.printStackTrace();
         }
