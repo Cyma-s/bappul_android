@@ -1,12 +1,18 @@
 package com.example.clug_bobple;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +49,13 @@ import noman.googleplaces.PlacesException;
 import noman.googleplaces.PlacesListener;
 
 public class GMap extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, PlacesListener {
+    private DrawerLayout map_layout;
+    private View navigation;
+    private ImageView menu;
+    private ImageView moreReview;
+    private double lat, lon;
+    private String name;
+
     List<Marker> previous_marker = new ArrayList<>();
     GoogleMap mMap;
     private FragmentManager fragmentManager;
@@ -56,8 +69,58 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
         fragmentManager = getFragmentManager();
         mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
 
+        map_layout = (DrawerLayout)findViewById(R.id.map_layout);
+        navigation = (View)findViewById(R.id.navigation);
+        moreReview = (ImageView)findViewById(R.id.moreReview);
+        moreReview.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GMap.this, UserReviewActivity.class);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lon", lon);
+                intent.putExtra("name", name);
+                startActivity(intent);
+            }
+        });
+        menu = (ImageView)findViewById(R.id.menu);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map_layout.openDrawer(navigation);
+            }
+        });
+
+        map_layout.setDrawerListener(listener);
+        navigation.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+    }
+    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+
+        }
+    };
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -135,14 +198,26 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                 .execute();
     }
 
+    public boolean isEllipsis(TextView textView){
+        // 1이 나오면 글씨가 줄여졌다는 뜻
+        if (textView.getLayout() != null){
+            return textView.getLayout().getEllipsisCount(textView.getLineCount() - 1) > 0;
+        }
+        return false;
+    }
+
     private void getMostRecentReview(Marker marker) {
         String url = getString(R.string.url) + "/restaurant/" + marker.getTitle() + "/reviews/review";
         RequestQueue queue = Volley.newRequestQueue(GMap.this);
 
+        lat = marker.getPosition().latitude;
+        lon = marker.getPosition().longitude;
+        name = marker.getTitle();
+
         JSONObject location = new JSONObject();
         try {
-            location.put("lat", Double.toString(marker.getPosition().latitude));
-            location.put("long", Double.toString(marker.getPosition().longitude));
+            location.put("lat", Double.toString(lat));
+            location.put("long", Double.toString(lon));
         } catch (JSONException exception) {
             exception.printStackTrace();
         }
@@ -160,6 +235,18 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                             review_date.setText(response.get("date").toString());
                             review.setText(response.get("content").toString());
                             star_rate.setRating(Integer.parseInt(response.get("rate").toString()));
+
+                            review.setOnClickListener(new View.OnClickListener(){
+                                @Override
+                                public void onClick(View v) {
+                                    if (isEllipsis(review)){
+                                        review.setSingleLine(false);
+                                    } else {
+                                        review.setSingleLine(true);
+                                    }
+                                }
+                            });
+
                         } catch (JSONException exception) {
                             exception.printStackTrace();
                         }
@@ -175,9 +262,7 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                 name.setText("");
                 review_date.setText("");
                 star_rate.setRating(0);
-                review.setText("아직 후기가 없어요. 첫번째 후기를 달아주세요:)");
-
-
+                review.setText("아직 후기가 없어요. 첫번째 후기를 달아주세요 :)");
 
             }
         });
