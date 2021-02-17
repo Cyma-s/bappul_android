@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Scroller;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -32,7 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserReviewActivity extends AppCompatActivity {
-    int len, cnt = 1;
+    int len, cnt = 1, sum = 0;
     ImageView more_review_db;
     String url;
     //int mScrollPosition;
@@ -83,7 +85,7 @@ public class UserReviewActivity extends AppCompatActivity {
                             if (i == len - 1) cnt += 1;
                         }
                     }
-
+                    sum += len;
                     recyclerView.setAdapter(adapter);
                     //mScrollPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
 
@@ -125,12 +127,21 @@ public class UserReviewActivity extends AppCompatActivity {
                                                 more_review.get("content").toString(), Integer.parseInt(more_review.get("rate").toString())));
                                         if (i == len-1) cnt += 1;
                                     }
-                                    recyclerView.smoothScrollToPosition(adapter.getItemCount()-1-len);
+                                    sum += len;
+                                    LinearSmoothScroller linearSmoothScroller = new LinearSmoothScroller(recyclerView.getContext()){
+                                        @Override
+                                        protected int getVerticalSnapPreference() {
+                                            return LinearSmoothScroller.SNAP_TO_END;
+                                        }
+                                    };
+                                    linearSmoothScroller.setTargetPosition(sum);
+                                    recyclerView.getLayoutManager().startSmoothScroll(linearSmoothScroller);
                                     recyclerView.setAdapter(adapter);
                                 } catch (JSONException exception) {
                                     exception.printStackTrace();
                                 }
                             }
+
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
