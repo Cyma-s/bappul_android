@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,6 +33,8 @@ public class bapyak_write extends AppCompatActivity {
     private EditText content;
     private ImageView back_button_write;
     private ImageView review_write_button;
+    private Spinner bapyak_write_spinner;
+    private SpinnerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,12 @@ public class bapyak_write extends AppCompatActivity {
 
         title = findViewById(R.id.title);
         content = findViewById(R.id.content);
+        bapyak_write_spinner = findViewById(R.id.bapyak_write_spinner);
+        String[] items = getResources().getStringArray(R.array.bapyak_write);
+
+        ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.spinner_item, items);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        bapyak_write_spinner.setAdapter(adapter);
 
         review_write_button = findViewById(R.id.review_write_button);
         review_write_button.setOnClickListener(new View.OnClickListener() {
@@ -55,12 +66,19 @@ public class bapyak_write extends AppCompatActivity {
     private void sendToServer(String title, String content) throws JSONException {
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
         String token = sharedPreferences.getString("Authorization", "");
-        String url = getString(R.string.url) + "/profile";
+        String url = getString(R.string.url) + "/bapyak";
         RequestQueue queue = Volley.newRequestQueue(bapyak_write.this);
 
         JSONObject posting = new JSONObject();
         posting.put("title", title);
         posting.put("content", content);
+        if (bapyak_write_spinner.getSelectedItem().toString().equals("사주세요")){
+            posting.put("bapyakMode", "join");
+        } else {
+            posting.put("bapyakMode", "inviting");
+        }
+
+        Toast.makeText(bapyak_write.this, posting.toString(), Toast.LENGTH_LONG).show();
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, posting,
                 new Response.Listener<JSONObject>(){
