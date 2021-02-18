@@ -72,6 +72,12 @@
         <item>컴퓨터예술학부</item>
         <item>스포츠과학부</item>
     </string-array>
-    
-    
+
+    <string-array name="bapyak_clsfc">
+        <item>선배</item>
+        <item>후배</item>
+        <item>밥약 신청</item>
+        <item>밥약 모집</item>
+    </string-array>
+
 </resources>
