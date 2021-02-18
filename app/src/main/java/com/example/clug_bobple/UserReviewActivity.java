@@ -1,6 +1,7 @@
 package com.example.clug_bobple;
 
 import android.app.Person;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -25,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -38,6 +40,26 @@ public class UserReviewActivity extends AppCompatActivity {
     ImageView more_review_db;
     String url;
     //int mScrollPosition;
+    FloatingActionButton review_add_button;
+    double lat, lon;
+    String name;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case 0:
+                Intent intent = getIntent();
+                name = intent.getStringExtra("name");
+                lon = intent.getDoubleExtra("lon", 0);
+                lat = intent.getDoubleExtra("lat", 0);
+                finish();
+                intent.putExtra("name", name);
+                intent.putExtra("lon", lon);
+                intent.putExtra("lat", lat);
+                startActivity(intent);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -52,9 +74,11 @@ public class UserReviewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         ReviewAdapter adapter = new ReviewAdapter();
 
-        double lat = 37.5061724;
-        double lon = 126.9569251;
-        String name = "차돌이식당";
+        Intent intent = getIntent();
+
+        lat = intent.getDoubleExtra("lat", 0);
+        lon = intent.getDoubleExtra("lon", 0);
+        name = intent.getStringExtra("name");
 
 
         JSONObject reviewItems = new JSONObject();
@@ -163,6 +187,19 @@ public class UserReviewActivity extends AppCompatActivity {
                 Review item = adapter.getItem(position);
             }
         });
+
+        review_add_button = findViewById(R.id.review_add_button);
+        review_add_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(UserReviewActivity.this, ReviewWriteActivity.class);
+                intent1.putExtra("lon", lon);
+                intent1.putExtra("lat", lat);
+                intent1.putExtra("restaurant", name);
+                startActivityForResult(intent1, 0);
+            }
+        });
+
 
     }
 }
