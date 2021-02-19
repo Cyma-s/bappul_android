@@ -78,7 +78,7 @@ public class bapyak_write extends AppCompatActivity {
             posting.put("bapyakMode", "inviting");
         }
 
-        Toast.makeText(bapyak_write.this, posting.toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(bapyak_write.this, posting.toString(), Toast.LENGTH_LONG).show();
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, posting,
                 new Response.Listener<JSONObject>(){
