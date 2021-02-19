@@ -51,19 +51,77 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/clsfc"
-            android:layout_width="100dp"
-            android:layout_height="25dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="25dp"
-            android:entries="@array/bapyak_clsfc"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bapyak_recyclerview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/type_clsfc"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:entries="@array/bapyak_clsfc" />
+
+            <Spinner
+                android:id="@+id/gender_clsfc"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:entries="@array/sex" />
+
+            <Spinner
+                android:id="@+id/major_clsfc"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:entries="@array/department" />
+
+            <ImageView
+                android:id="@+id/bapyak_search"
+                android:layout_width="50dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="6dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/search" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bapyak_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/post_add_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="28dp"
+                android:src="@drawable/plus"
+                app:backgroundTint="@color/yellow"
+                app:pressedTranslationZ="6dp"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </LinearLayout>
 

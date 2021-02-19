@@ -2,14 +2,23 @@ package com.example.clug_bobple;
 
 public class Bapyak {
 
-    public Bapyak(String title, String user_name, String entrance_year) {
+    public Bapyak(String title, String user_name, String entrance_year, String bapyak_date) {
         this.title = title;
         this.user_name = user_name;
         this.entrance_year = entrance_year;
+        this.bapyak_date = bapyak_date;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getBapyak_date() {
+        return bapyak_date;
+    }
+
+    public void setBapyak_date(String bapyak_date) {
+        this.bapyak_date = bapyak_date;
     }
 
     public void setTitle(String title) {
@@ -35,4 +44,5 @@ public class Bapyak {
     String title;
     String user_name;
     String entrance_year;
+    String bapyak_date;
 }

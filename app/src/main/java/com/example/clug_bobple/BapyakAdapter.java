@@ -57,6 +57,7 @@ public class BapyakAdapter extends RecyclerView.Adapter<BapyakAdapter.ViewHolder
         TextView entrance_year;
         TextView name;
         TextView title;
+        TextView bapyak_date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +65,7 @@ public class BapyakAdapter extends RecyclerView.Adapter<BapyakAdapter.ViewHolder
             entrance_year = itemView.findViewById(R.id.bapyak_entranceyear);
             name = itemView.findViewById(R.id.bapyak_username);
             title = itemView.findViewById(R.id.bapyak_title);
+            bapyak_date = itemView.findViewById(R.id.bapyak_date);
 
             // 이 부분에 itemView setOnclickListener 삽입하면 된다.
         }
@@ -72,6 +74,7 @@ public class BapyakAdapter extends RecyclerView.Adapter<BapyakAdapter.ViewHolder
             entrance_year.setText(bapyak.getEntrance_year());
             name.setText(bapyak.getUser_name());
             title.setText(bapyak.getTitle());
+            bapyak_date.setText(bapyak.getBapyak_date());
         }
     }
 }

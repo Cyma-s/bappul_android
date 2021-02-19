@@ -71,6 +71,20 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
+                    <TextView
+                        android:id="@+id/bapyak_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/spb"
+                        android:text="날짜"
+                        android:textColor="#858585"
+                        android:textSize="6sp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/bapyak_username" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
