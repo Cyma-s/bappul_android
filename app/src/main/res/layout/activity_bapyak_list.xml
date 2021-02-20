@@ -33,6 +33,7 @@
             app:layout_constraintVertical_bias="0.212" />
 
         <TextView
+            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
@@ -44,6 +45,38 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/back_button"
             app:layout_constraintTop_toTopOf="@+id/title_bar" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/search_square"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <EditText
+            android:id="@+id/search_content"
+            android:layout_width="290dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <ImageView
+            android:id="@+id/bapyak_search_button"
+            android:layout_width="40dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="303dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/search_button"
+            app:layout_constraintEnd_toEndOf="@+id/title_bar"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
@@ -81,17 +114,18 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:entries="@array/department" />
 
             <ImageView
                 android:id="@+id/bapyak_search"
-                android:layout_width="50dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="6dp"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="6dp"
                 android:layout_weight="1"
                 android:src="@drawable/search" />
 

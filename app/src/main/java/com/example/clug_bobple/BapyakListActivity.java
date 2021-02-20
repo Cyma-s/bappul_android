@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -42,14 +43,17 @@ public class BapyakListActivity extends AppCompatActivity {
     public static Context CONTEXT;
     int len = 0, cnt = 1, sum = 0;
     ImageView more_review_db;
-    String url;
+    String url, content;
     String post_type, gender, major;
     Spinner type_clsfc, gender_clsfc, major_clsfc;
     FloatingActionButton post_add_button;
-    ImageView bapyak_search;
+    ImageView bapyak_search, bapyak_search_button;
+    EditText search_content;
     RecyclerView recyclerView;
     int type_clsfc_num = 0, gender_clsfc_num = 0, major_clsfc_num = 0;
     ArrayAdapter<CharSequence> type_adapter, gender_adapter, major_adapter;
+    SharedPreferences sharedPreferences;
+    boolean isSearchClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class BapyakListActivity extends AppCompatActivity {
         CONTEXT = this;
 
         recyclerView = findViewById(R.id.bapyak_recyclerview);
+        bapyak_search_button = findViewById(R.id.bapyak_search_button);
+        search_content = findViewById(R.id.search_content);
 
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -152,6 +158,23 @@ public class BapyakListActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         loadingPost(post_type, gender, major, recyclerView, adapter);
 
+        bapyak_search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                content = search_content.getText().toString();
+
+                isSearchClicked = true;
+
+                adapter.clear();
+                adapter.notifyDataSetChanged();
+                cnt = 1;
+                url = getString(R.string.url) + "/bapyak/" + post_type + "/search/"+
+                        content + "/" + Integer.toString(cnt) + "?gender=" + gender + "&major=" + major;
+
+                searchPosts(url, post_type, gender, major, recyclerView, adapter);
+            }
+        });
+
         bapyak_search = findViewById(R.id.bapyak_search);
         bapyak_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,19 +199,32 @@ public class BapyakListActivity extends AppCompatActivity {
                 if (major.equals("학과")) {
                     major = "none";
                 }
-                Intent intent = new Intent(BapyakListActivity.this, BapyakListActivity.class);
-                intent.putExtra("type", type_clsfc_num);
-                intent.putExtra("gender", gender_clsfc_num);
-                intent.putExtra("major", major_clsfc_num);
 
-                //onResume();
-                //finish();
-                //startActivity(getIntent());
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                cnt = 1;
+                if (isSearchClicked){
+                    Intent intent = new Intent(BapyakListActivity.this, BapyakListActivity.class);
+                    intent.putExtra("type", type_clsfc_num);
+                    intent.putExtra("gender", gender_clsfc_num);
+                    intent.putExtra("major", major_clsfc_num);
 
-                loadingPost(post_type, gender, major, recyclerView, adapter);
+                    adapter.clear();
+                    adapter.notifyDataSetChanged();
+                    cnt = 1;
+                    url = getString(R.string.url) + "/bapyak/" + post_type + "/search/"+
+                            content + "/" + Integer.toString(cnt) + "?gender=" + gender + "&major=" + major;
+
+                    searchPosts(url, post_type, gender, major, recyclerView, adapter);
+                } else {
+                    Intent intent = new Intent(BapyakListActivity.this, BapyakListActivity.class);
+                    intent.putExtra("type", type_clsfc_num);
+                    intent.putExtra("gender", gender_clsfc_num);
+                    intent.putExtra("major", major_clsfc_num);
+
+                    adapter.clear();
+                    adapter.notifyDataSetChanged();
+                    cnt = 1;
+
+                    loadingPost(post_type, gender, major, recyclerView, adapter);
+                }
             }
         });
 
@@ -209,6 +245,16 @@ public class BapyakListActivity extends AppCompatActivity {
         Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(BapyakListActivity.this);
 
+        jsonRequest(queue, adapter, token);
+
+        morePostLoad(adapter, queue, token);
+
+        recyclerView.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
+    }
+
+    public void jsonRequest(RequestQueue queue, BapyakAdapter adapter, String token){
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -249,9 +295,10 @@ public class BapyakListActivity extends AppCompatActivity {
                 return heads;
             }
         };
-
         queue.add(jsonObjectRequest);
+    }
 
+    public void morePostLoad(BapyakAdapter adapter, RequestQueue queue, String token){
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -311,6 +358,18 @@ public class BapyakListActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void searchPosts(String url, String post_type, String gender, String major, RecyclerView recyclerView,
+                            BapyakAdapter adapter) {
+        SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+        String token = sharedPreferences.getString("Authorization", "");
+        Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_LONG).show();
+        RequestQueue queue = Volley.newRequestQueue(BapyakListActivity.this);
+
+        jsonRequest(queue, adapter, token);
+
+        morePostLoad(adapter, queue, token);
 
         recyclerView.setAdapter(adapter);
 
