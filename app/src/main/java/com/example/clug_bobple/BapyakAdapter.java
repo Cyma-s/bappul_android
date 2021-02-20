@@ -15,7 +15,7 @@ public class BapyakAdapter extends RecyclerView.Adapter<BapyakAdapter.ViewHolder
 
     @NonNull
     @Override
-    public BapyakAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View bapyakView = inflater.inflate(R.layout.bapyak_item, parent, false);
 
@@ -23,14 +23,14 @@ public class BapyakAdapter extends RecyclerView.Adapter<BapyakAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BapyakAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Bapyak item = post.get(position);
         holder.setItem(item);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return post.size();
     }
 
     public void addItem(Bapyak bapyak){
@@ -45,9 +45,9 @@ public class BapyakAdapter extends RecyclerView.Adapter<BapyakAdapter.ViewHolder
         post.set(position, item);
     }
 
-    public ArrayList<Bapyak> getPost() {
+    /*public ArrayList<Bapyak> getPost() {
         return post;
-    }
+    }*/
 
     public void setPost(ArrayList<Bapyak> post) {
         this.post = post;
@@ -75,6 +75,17 @@ public class BapyakAdapter extends RecyclerView.Adapter<BapyakAdapter.ViewHolder
             name.setText(bapyak.getUser_name());
             title.setText(bapyak.getTitle());
             bapyak_date.setText(bapyak.getBapyak_date());
+        }
+    }
+
+    public void clear(){
+        int size = post.size();
+        if (size > 0){
+            for (int i= 0; i<size; i++){
+                post.remove(0);
+            }
+
+            notifyItemRangeRemoved(0, size);
         }
     }
 }
