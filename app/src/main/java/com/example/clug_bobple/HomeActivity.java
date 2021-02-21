@@ -59,8 +59,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     GoogleMap mMap;
     private FragmentManager fragmentManager;
     private MapFragment mapFragment;
-    int len = 0, sum = 0;
-    ImageView list_button;
+    int len = 0, cnt = 1, sum = 0;
+    ImageView list_button, more_button;
     RecyclerView recyclerView;
     private DrawerLayout home_layout;
     private View navigation;
@@ -79,10 +79,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent_gmap);
             }
         });
+
         fragmentManager = getFragmentManager();
         mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.home_map);
         mapFragment.getMapAsync(this);
         mapintent = (TextView) findViewById(R.id.mapintent);
+
         mapintent.bringToFront();
         mapintent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +93,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent_map);
             }
         });
+
         ArrayList<Recent> list = new ArrayList<>();
         recyclerView = findViewById(R.id.recent_bapyak);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -106,15 +109,27 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
 
         jsonRequest(queue, adapter);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
 
         home_layout = (DrawerLayout)findViewById(R.id.home_layout);
         navigation = (View)findViewById(R.id.navigation);
         menu_button = (ImageView)findViewById(R.id.menu_button);
+        more_button = (ImageView)findViewById(R.id.more_bapyak);
+
         menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 home_layout.openDrawer(navigation);
+            }
+        });
+
+        more_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, BapyakListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -126,6 +141,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return true;
             }
         });
+
+
 
     }
 
@@ -157,9 +174,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            Toast.makeText(HomeActivity.this, Integer.toString(len), Toast.LENGTH_LONG).show();
                             //Toast.makeText(BapyakListActivity.this, posts.toString(), Toast.LENGTH_LONG).show();
-
 
                             for (int i = 0; i < 5; i++) {
                                 JSONObject object = response.getJSONObject(i);

@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">CLUG_Bobple</string>
+<<<<<<< HEAD
     <string name="url">http://83fc983c546a.ngrok.iob</string>
+=======
+    <string name="url">http://83fc983c546a.ngrok.io</string>
+>>>>>>> dc165b22b8970ee6194a025d7562c75687234f7e
 
 </resources>
