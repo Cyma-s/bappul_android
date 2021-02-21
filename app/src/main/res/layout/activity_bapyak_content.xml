@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".BapyakContentActivity">
 
     <ImageView
@@ -17,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity ="center"
-        android:fillViewport="true"
+        android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:id="@+id/scrollView">
+        android:fillViewport="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,7 +34,7 @@
                 android:id="@+id/cardView"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="25dp"
                 app:cardBackgroundColor="#FFFFFFFF"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
@@ -184,8 +185,30 @@
 
     </ScrollView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#000000"
+        android:fontFamily="@font/spb_regular"
+        android:text="댓글"
+        android:textSize="15sp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="303dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comment_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+        </androidx.recyclerview.widget.RecyclerView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</LinearLayout>
