@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     GoogleMap mMap;
     private FragmentManager fragmentManager;
     private MapFragment mapFragment;
-    int len = 0, cnt = 1, sum = 0;
+    int len = 0, sum = 0;
     ImageView list_button;
     RecyclerView recyclerView;
     private DrawerLayout home_layout;
@@ -105,7 +105,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         Toast.makeText(HomeActivity.this, url, Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
 
-        jsonRequest(queue, adapter, token);
+        jsonRequest(queue, adapter);
 
 
         home_layout = (DrawerLayout)findViewById(R.id.home_layout);
@@ -151,7 +151,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     };
 
-    public void jsonRequest(RequestQueue queue, HomeAdapter adapter, String token){
+    public void jsonRequest(RequestQueue queue, HomeAdapter adapter){
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -162,10 +162,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                             for (int i = 0; i < 5; i++) {
-                                if (cnt == 1) {
-                                    JSONObject object = response.getJSONObject(i);
-                                    adapter.addItem(new Recent(object.get("title").toString(), object.get("content").toString()));
-                                }
+                                JSONObject object = response.getJSONObject(i);
+                                adapter.addItem(new Recent(object.get("title").toString(), object.get("content").toString()));
                             }
                             recyclerView.setAdapter(adapter);
 
@@ -178,14 +176,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(HomeActivity.this, "오류입니다.", Toast.LENGTH_SHORT).show();
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> heads = new HashMap<String, String>();
-                heads.put("Authorization", "Bearer " + token);
-                return heads;
-            }
-        };
+        });
         queue.add(jsonArrayRequest);
     }
 
