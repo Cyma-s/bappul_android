@@ -67,16 +67,66 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView menu_button;
     private ConstraintLayout mapp;
     private TextView mapintent;
+    private TextView home, my_writing, to_restaurant, promise, logout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+        String token = sharedPreferences.getString("Authorization", "");
+        Toast.makeText(HomeActivity.this, url, Toast.LENGTH_LONG).show();
+        RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
+
         mapp = (ConstraintLayout)findViewById(R.id.mapp);
         mapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent_gmap = new Intent(HomeActivity.this, GMap.class);
                 startActivity(intent_gmap);
+            }
+        });
+        home = (TextView) findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home_layout.closeDrawer(navigation);
+            }
+        });
+        my_writing = (TextView) findViewById(R.id.my_writing);
+        my_writing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_mypage = new Intent(HomeActivity.this, MyPage.class);
+                startActivity(intent_mypage);
+            }
+        });
+        to_restaurant = (TextView) findViewById(R.id.to_restaurant);
+        to_restaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_review = new Intent(HomeActivity.this, GMap.class);
+                startActivity(intent_review);
+            }
+        });
+        promise = (TextView) findViewById(R.id.promise);
+        promise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_list = new Intent(HomeActivity.this, BapyakListActivity.class);
+                startActivity(intent_list);
+            }
+        });
+        logout = (TextView) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Authorization", "");
+                editor.apply();
+                Intent intent_main = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(intent_main);
             }
         });
 
@@ -102,11 +152,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         recyclerView.setAdapter(adapter);
 
         url = getString(R.string.url) + "/bapyak" + "/home";
-
-        SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
-        String token = sharedPreferences.getString("Authorization", "");
-        Toast.makeText(HomeActivity.this, url, Toast.LENGTH_LONG).show();
-        RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
 
         jsonRequest(queue, adapter);
         recyclerView.setAdapter(adapter);
