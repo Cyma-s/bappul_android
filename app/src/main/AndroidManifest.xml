@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CLUG_Bobple">
         <activity android:name=".MyPage"></activity>
+        <activity android:name=".BapyakListActivity"></activity>
         <activity android:name=".ReviewWriteActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".GMap" />

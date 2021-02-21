@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="std_age">
+        <item>학번</item>
         <item>10</item>
         <item>11</item>
         <item>12</item>
@@ -15,10 +16,12 @@
         <item>21</item>
     </string-array>
     <string-array name="sex">
+        <item>성별</item>
         <item>남자</item>
         <item>여자</item>
     </string-array>
     <string-array name="department">
+        <item>학과</item>
         <item>국어국문학과</item>
         <item>영어영문학과</item>
         <item>유럽문화학부</item>
@@ -72,6 +75,11 @@
         <item>컴퓨터예술학부</item>
         <item>스포츠과학부</item>
     </string-array>
-    
-    
+
+    <string-array name="bapyak_clsfc">
+        <item>유형</item>
+        <item>사주세요</item>
+        <item>사줄게요</item>
+    </string-array>
+
 </resources>
