@@ -6,7 +6,7 @@
         </shape>
     </item>
 
-    <item android:top="0.8dp">
+    <item android:top="0.5dp">
         <shape android:shape="rectangle">
             <solid android:color="#FFFFFF"/>
         </shape>

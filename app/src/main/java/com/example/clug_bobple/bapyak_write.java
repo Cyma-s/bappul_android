@@ -56,6 +56,9 @@ public class bapyak_write extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     sendToServer(title.getText().toString(), content.getText().toString());
+                    Intent intent = new Intent(bapyak_write.this, BapyakListActivity.class);
+                    startActivity(intent);
+                    finish();
                 } catch (JSONException exception) {
                     exception.printStackTrace();
                 }

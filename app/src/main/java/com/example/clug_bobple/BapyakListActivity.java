@@ -244,7 +244,9 @@ public class BapyakListActivity extends AppCompatActivity {
         post_add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent1 = new Intent(BapyakListActivity.this, bapyak_write.class);
+                startActivity(intent1);
+                finish();
             }
         });
     }

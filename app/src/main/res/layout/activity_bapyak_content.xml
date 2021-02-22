@@ -59,7 +59,7 @@
                             android:layout_height="50dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/black_beans" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

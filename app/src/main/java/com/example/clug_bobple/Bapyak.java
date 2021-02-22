@@ -10,6 +10,13 @@ public class Bapyak {
         this.content_id = content_id;
     }
 
+    public Bapyak(String title, String userName, String userEntranceYear, String createdDate) {
+        this.title = title;
+        this.user_name = userName;
+        this.entrance_year = userEntranceYear;
+        this.bapyak_date = createdDate;
+    }
+
     public String getComment_num() {
         return comment_num;
     }

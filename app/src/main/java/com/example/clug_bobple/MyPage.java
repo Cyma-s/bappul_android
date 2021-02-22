@@ -50,7 +50,6 @@ public class MyPage extends AppCompatActivity {
         mypage_layout = (DrawerLayout) findViewById(R.id.mypage_layout);
         navigation = (View) findViewById(R.id.navigation);
         menu_button = (ImageView) findViewById(R.id.menu_button);
-        edit = (TextView) findViewById(R.id.edit);
         user_name = (TextView) findViewById(R.id.user_name);
         menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,9 +108,10 @@ public class MyPage extends AppCompatActivity {
             }
         });
 
+
+
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
         String token = sharedPreferences.getString("Authorization", "");
-        Toast.makeText(MyPage.this, url, Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(MyPage.this);
         url = getString(R.string.url) + "/mypage/my_bapyaks/" + Integer.toString(cnt);
 
@@ -119,6 +119,17 @@ public class MyPage extends AppCompatActivity {
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         my_writing_rcv.setLayoutManager(layoutManager);
         BapyakAdapter adapter = new BapyakAdapter();
+
+        adapter.setOnItemClicklistener(new OnBapyakItemClickListener() {
+            @Override
+            public void onItemClick(BapyakAdapter.ViewHolder holder, View view, int position) {
+                Bapyak item = adapter.getItem(position);
+                String id = item.getContent_id();
+                Intent intent = new Intent(MyPage.this, BapyakContentActivity.class);
+                intent.putExtra("content_id", id);
+                startActivity(intent);
+            }
+        });
 
         jsonRequest(queue, adapter, token);
 
@@ -137,6 +148,8 @@ public class MyPage extends AppCompatActivity {
                         try {
                             len = (int) response.get("length");
                             JSONArray posts =  response.getJSONArray("bapyaks");
+                            String user = response.get("name").toString();
+                            user_name.setText(user);
 
                             Toast.makeText(MyPage.this, Integer.toString(len), Toast.LENGTH_LONG).show();
                             //Toast.makeText(BapyakListActivity.this, posts.toString(), Toast.LENGTH_LONG).show();
@@ -146,10 +159,13 @@ public class MyPage extends AppCompatActivity {
                                 if (cnt == 1) {
                                     JSONObject object = posts.getJSONObject(i);
                                     adapter.addItem(new Bapyak(object.get("title").toString(), object.get("userName").toString(),
-                                            object.get("userEntranceYear").toString() + "학번", object.get("createdDate").toString()));
+                                            object.get("userEntranceYear").toString() + "학번", object.get("createdDate").toString(),
+                                            object.get("comentNum").toString(), object.get("id").toString()));
+
                                     if (i == len - 1) cnt += 1;
                                 }
                             }
+
                             sum += len;
                             my_writing_rcv.setAdapter(adapter);
 
@@ -196,7 +212,8 @@ public class MyPage extends AppCompatActivity {
                                     for (int i = 0; i<len; i++){
                                         JSONObject more_post = posts.getJSONObject(i);
                                         adapter.addItem(new Bapyak(more_post.get("title").toString(), more_post.get("userName").toString(),
-                                                more_post.get("userEntranceYear").toString() + "학번", more_post.get("createdDate").toString()));
+                                                more_post.get("userEntranceYear").toString() + "학번", more_post.get("createdDate").toString(),
+                                                more_post.get("comentNum").toString(), more_post.get("id").toString()));
                                         if (i == len-1) cnt += 1;
                                     }
                                     sum += len;
