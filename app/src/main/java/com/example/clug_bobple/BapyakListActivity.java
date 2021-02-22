@@ -43,7 +43,7 @@ public class BapyakListActivity extends AppCompatActivity {
     public static Context CONTEXT;
     int len = 0, cnt = 1, sum = 0;
     ImageView more_review_db;
-    String url, content;
+    String url, content, id;
     String post_type, gender, major;
     Spinner type_clsfc, gender_clsfc, major_clsfc;
     FloatingActionButton post_add_button;
@@ -228,6 +228,18 @@ public class BapyakListActivity extends AppCompatActivity {
             }
         });
 
+        adapter.setOnItemClicklistener(new OnBapyakItemClickListener() {
+            @Override
+            public void onItemClick(BapyakAdapter.ViewHolder holder, View view, int position) {
+                Bapyak item = adapter.getItem(position);
+                id = item.getContent_id();
+                Intent intent1 = new Intent(BapyakListActivity.this, BapyakContentActivity.class);
+                intent1.putExtra("content_id", id);
+                startActivity(intent1);
+            }
+        });
+
+
         post_add_button = findViewById(R.id.post_add_button);
         post_add_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,7 +259,7 @@ public class BapyakListActivity extends AppCompatActivity {
 
         jsonRequest(queue, adapter, token);
 
-        morePostLoad(adapter, queue, token);
+        morePostLoad(adapter, queue, token, isSearchClicked);
 
         recyclerView.setAdapter(adapter);
 
@@ -271,7 +283,7 @@ public class BapyakListActivity extends AppCompatActivity {
                                 if (cnt == 1) {
                                     JSONObject object = posts.getJSONObject(i);
                                     adapter.addItem(new Bapyak(object.get("title").toString(), object.get("userName").toString(),
-                                            object.get("userEntranceYear").toString() + "학번", object.get("createdDate").toString()));
+                                            object.get("userEntranceYear").toString() + "학번", object.get("createdDate").toString(), object.get("comentNum").toString(), object.get("id").toString()));
                                     if (i == len - 1) cnt += 1;
                                 }
                             }
@@ -298,14 +310,19 @@ public class BapyakListActivity extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    public void morePostLoad(BapyakAdapter adapter, RequestQueue queue, String token){
+    public void morePostLoad(BapyakAdapter adapter, RequestQueue queue, String token, boolean isSearchClicked){
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 if (!recyclerView.canScrollVertically(1)){
-                    url = getString(R.string.url) + "/bapyak/" + post_type + "/" + Integer.toString(cnt) + "?gender=" + gender + "&major=" + major;
+                    if (isSearchClicked){
+                        url = getString(R.string.url) + "/bapyak/" + post_type + "/search/"+
+                                content + "/" + Integer.toString(cnt) + "?gender=" + gender + "&major=" + major;
+                    } else {
+                        url = getString(R.string.url) + "/bapyak/" + post_type + "/" + Integer.toString(cnt) + "?gender=" + gender + "&major=" + major;
+                    }
                     Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_SHORT).show();
 
                     if (len == 0){
@@ -321,7 +338,7 @@ public class BapyakListActivity extends AppCompatActivity {
                                     for (int i = 0; i<len; i++){
                                         JSONObject more_post = posts.getJSONObject(i);
                                         adapter.addItem(new Bapyak(more_post.get("title").toString(), more_post.get("userName").toString(),
-                                                more_post.get("userEntranceYear").toString() + "학번", more_post.get("createdDate").toString()));
+                                                more_post.get("userEntranceYear").toString() + "학번", more_post.get("createdDate").toString(), more_post.get("comentNum").toString(), more_post.get("id").toString()));
                                         if (i == len-1) cnt += 1;
                                     }
                                     sum += len;
@@ -369,7 +386,7 @@ public class BapyakListActivity extends AppCompatActivity {
 
         jsonRequest(queue, adapter, token);
 
-        morePostLoad(adapter, queue, token);
+        morePostLoad(adapter, queue, token, isSearchClicked);
 
         recyclerView.setAdapter(adapter);
 

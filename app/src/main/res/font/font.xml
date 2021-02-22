@@ -4,5 +4,9 @@
         android:fontStyle = "normal"
         android:fontWeight = "400"
         android:font = "@font/spb"/>
+    <font
+        android:fontStyle= "normal"
+        android:fontWeight= "200"
+        android:font="@font/spb_regular"/>
 
 </font-family>

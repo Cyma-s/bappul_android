@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_bappul_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CLUG_Bobple">
+        <activity android:name=".BapyakContentActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".BapyakListActivity" />
         <activity android:name=".MyPage"/>
-        <activity android:name=".BapyakListActivity"/>
         <activity android:name=".bapyak_write"/>
         <activity android:name=".ReviewWriteActivity" />
         <activity android:name=".HomeActivity" />
