@@ -20,7 +20,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="0dp"
         android:fillViewport="true"
         android:gravity="center"
@@ -169,7 +169,6 @@
 
                             </LinearLayout>
                         </LinearLayout>
-
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -199,7 +198,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="377dp"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical"
                 tools:layout_editor_absoluteY="303dp">
@@ -212,6 +211,40 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/comment"
+                    android:layout_width="380dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/edittext_round"
+                    android:fontFamily="@font/spb_regular"
+                    android:hint="댓글을 입력하세요"
+                    android:inputType="text"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="50dp"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/send_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/send"
+                    app:layout_constraintEnd_toEndOf="@+id/comment"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 

@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,8 @@ public class BapyakContentActivity extends AppCompatActivity {
     String content_id;
     TextView entrance_year, user_name, date, title, content, comments_num;
     RecyclerView recyclerView;
+    EditText comment;
+    ImageView send;
     String url;
     int len;
 
@@ -50,6 +55,8 @@ public class BapyakContentActivity extends AppCompatActivity {
         title = findViewById(R.id.content_title);
         content = findViewById(R.id.content_content);
         comments_num = findViewById(R.id.comments_num);
+        comment = findViewById(R.id.comment);
+        send = findViewById(R.id.send_button);
 
         String content_url = getString(R.string.url) + "/bapyak/"+content_id;
         RequestQueue queue = Volley.newRequestQueue(BapyakContentActivity.this);
@@ -111,13 +118,20 @@ public class BapyakContentActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        /*String url = getString(R.string.url) + "/bapyak-comment/"+content_id;
-        JSONObject postJson = new JSONObject();
-        try{
-            // 댓글 내용, token,
-            //postJson.put("content", );
-        } catch (JSONException e){
-            e.printStackTrace();
-        }*/
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = getString(R.string.url) + "/bapyakcomment/"+content_id;
+                JSONObject postJson = new JSONObject();
+                try{
+                    postJson.put("content", comment.getText().toString());
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+                comment.setText(null);
+
+                //addItem 해주면 될 것 같은데 아직 서버에서 안 줄 것 같음.
+            }
+        });
     }
 }
