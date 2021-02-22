@@ -61,7 +61,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/bapyak_entranceyear" />
 
-                    <ImageView
+                  <ImageView
                         android:id="@+id/imageView2"
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
@@ -101,6 +101,7 @@
                         android:layout_gravity="center_vertical"
                         android:textStyle="bold"
                         android:text="제목" />
+
                 </LinearLayout>
 
             </LinearLayout>
