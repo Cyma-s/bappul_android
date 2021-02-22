@@ -18,7 +18,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -75,7 +77,6 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
         String token = sharedPreferences.getString("Authorization", "");
-        Toast.makeText(HomeActivity.this, url, Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
 
         mapp = (ConstraintLayout)findViewById(R.id.mapp);
@@ -151,6 +152,25 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         HomeAdapter adapter = new HomeAdapter(list);
         recyclerView.setAdapter(adapter);
 
+        SnapHelper snapHelper = new PagerSnapHelper();
+        if (recyclerView.getOnFlingListener() == null){
+            snapHelper.attachToRecyclerView(recyclerView);
+        }
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager =
+                        (LinearLayoutManager) recyclerView.getLayoutManager();
+            }
+        });
+
         url = getString(R.string.url) + "/bapyak" + "/home";
 
         jsonRequest(queue, adapter);
@@ -223,7 +243,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             for (int i = 0; i < 5; i++) {
                                 JSONObject object = response.getJSONObject(i);
-                                adapter.addItem(new Recent(object.get("title").toString(), object.get("content").toString()));
+                                adapter.addItem(new Recent(object.get("title").toString(), object.get("content").toString(), object.get("userName").toString()));
                             }
                             recyclerView.setAdapter(adapter);
 

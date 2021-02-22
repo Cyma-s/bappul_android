@@ -100,20 +100,45 @@
             android:layout_width="80dp"
             android:layout_height="30dp"
             android:layout_marginStart="32dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="21dp"
             android:src="@drawable/more_button"
-            app:layout_constraintBottom_toTopOf="@+id/recent_bapyak"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView4" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recent_bapyak"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginTop="36dp"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="380dp"
+            android:layout_height="280dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/home_layout"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/spb"
+                android:text="최근 게시물"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recent_bapyak"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     <include layout="@layout/activity_navigation" />
 </androidx.drawerlayout.widget.DrawerLayout>

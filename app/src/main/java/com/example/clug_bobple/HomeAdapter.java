@@ -40,14 +40,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView home_title;
         TextView home_content;
+        TextView home_username;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             home_title = itemView.findViewById(R.id.home_title);
             home_content = itemView.findViewById(R.id.home_content);
+            home_username = itemView.findViewById(R.id.home_username);
         }
         public void setItem(Recent recent) {
             home_title.setText(recent.getHome_title());
             home_content.setText(recent.getHome_content());
+            home_username.setText(recent.getHome_username());
         }
     }
 
