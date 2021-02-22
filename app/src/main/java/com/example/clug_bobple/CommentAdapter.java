@@ -78,4 +78,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             comment_content.setText(comment.getComment_content());
         }
     }
+
+    public void clear(){
+        int size = comments.size();
+        if (size > 0){
+            for (int i= 0; i<size; i++){
+                comments.remove(0);
+            }
+
+            notifyItemRangeRemoved(0, size);
+        }
+    }
 }
