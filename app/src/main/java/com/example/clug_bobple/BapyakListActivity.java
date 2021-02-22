@@ -338,7 +338,7 @@ public class BapyakListActivity extends AppCompatActivity {
                                     for (int i = 0; i<len; i++){
                                         JSONObject more_post = posts.getJSONObject(i);
                                         adapter.addItem(new Bapyak(more_post.get("title").toString(), more_post.get("userName").toString(),
-                                                more_post.get("userEntranceYear").toString() + "학번", more_post.get("createdDate").toString(), more_post.get("commentNum").toString(), more_post.get("bapyakId").toString()));
+                                                more_post.get("userEntranceYear").toString() + "학번", more_post.get("createdDate").toString(), more_post.get("comentNum").toString(), more_post.get("id").toString()));
                                         if (i == len-1) cnt += 1;
                                     }
                                     sum += len;

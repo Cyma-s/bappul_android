@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +28,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -198,13 +198,50 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="377dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical"
                 tools:layout_editor_absoluteY="303dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="8dp">
+
+                    <EditText
+                        android:id="@+id/comment"
+                        android:layout_width="340dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/edittext_round"
+                        android:fontFamily="@font/spb_regular"
+                        android:hint="댓글을 입력하세요"
+                        android:inputType="text"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="50dp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <ImageView
+                        android:id="@+id/send_button"
+                        android:layout_width="36dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/send" />
+
+                </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/comment_recyclerView"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -212,43 +249,8 @@
 
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="2dp">
-
-                <EditText
-                    android:id="@+id/comment"
-                    android:layout_width="380dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/edittext_round"
-                    android:fontFamily="@font/spb_regular"
-                    android:hint="댓글을 입력하세요"
-                    android:inputType="text"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="50dp"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
-
-                <ImageView
-                    android:id="@+id/send_button"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@drawable/send"
-                    app:layout_constraintEnd_toEndOf="@+id/comment"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

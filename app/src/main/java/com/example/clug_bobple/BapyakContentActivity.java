@@ -63,6 +63,8 @@ public class BapyakContentActivity extends AppCompatActivity {
         comment = findViewById(R.id.comment);
         send = findViewById(R.id.send_button);
 
+
+
         String content_url = getString(R.string.url) + "/bapyak/"+content_id;
         RequestQueue queue = Volley.newRequestQueue(BapyakContentActivity.this);
 
@@ -72,7 +74,7 @@ public class BapyakContentActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try{
                     user_name.setText(response.get("userName").toString());
-                    entrance_year.setText(response.get("userEntranceYear").toString());
+                    entrance_year.setText(response.get("userEntranceYear").toString()+"학번");
                     date.setText(response.get("createdDate").toString());
                     title.setText(response.get("title").toString());
                     comments_num.setText(response.get("comentNum").toString());
@@ -128,8 +130,6 @@ public class BapyakContentActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.clear();
-                adapter.notifyDataSetChanged();
                 String url = getString(R.string.url) + "/bapyakcomment/"+content_id;
                 JSONObject postJson = new JSONObject();
                 try{
@@ -141,6 +141,31 @@ public class BapyakContentActivity extends AppCompatActivity {
 
                 comment.setText(null);
 
+                final JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest(Request.Method.POST, url, postJson,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String,String> heads = new HashMap<String, String>();
+                        heads.put("Authorization", "Bearer "+token);
+                        return heads;
+                    }
+                };
+
+                adapter.clear();
+                adapter.notifyDataSetChanged();
+                queue2.add(jsonObjectRequest1);
+
+                RequestQueue queue3 = Volley.newRequestQueue(BapyakContentActivity.this);
 
                 //addItem 해주면 될 것 같은데 아직 서버에서 안 줄 것 같음.
                 final JsonArrayRequest jsonArrayRequest1 = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -154,9 +179,10 @@ public class BapyakContentActivity extends AppCompatActivity {
                                         adapter.addItem(new Comment(object.get("name").toString(), object.get("entranceYear").toString()+"학번",
                                                 object.get("content").toString(), object.get("date").toString()));
                                     }
-                                    recyclerView.setAdapter(adapter);
-                                    Toast.makeText(BapyakContentActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                                     adapter.notifyDataSetChanged();
+                                    recyclerView.setAdapter(adapter);
+                                    comments_num.setText(Integer.toString(len));
+                                    Toast.makeText(BapyakContentActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                                 } catch (JSONException e){
                                     e.printStackTrace();
                                 }
@@ -166,18 +192,11 @@ public class BapyakContentActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(BapyakContentActivity.this, "오류입니다.", Toast.LENGTH_SHORT).show();
                     }
-                }){
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String,String> heads = new HashMap<String, String>();
-                        heads.put("Authorization", "Bearer "+token);
-                        return heads;
-                    }
-                };
+                });
 
-                queue2.add(jsonArrayRequest1);
-                recyclerView.setAdapter(adapter);
+                queue3.add(jsonArrayRequest1);
                 adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
             }
         });
 
