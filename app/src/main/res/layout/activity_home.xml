@@ -42,18 +42,35 @@
             app:layout_constraintHorizontal_bias="0.109"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-        <ImageView
-            android:id="@+id/list_button"
+        <TextView
+            android:id="@+id/mapintent"
             android:layout_width="351dp"
             android:layout_height="185dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginBottom="58dp"
-            android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.275">
+
+            <fragment
+                android:id="@+id/home_map"
+                class="com.google.android.gms.maps.MapFragment"
+                android:layout_width="351dp"
+                android:layout_height="185dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/textView10"
@@ -70,6 +87,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="254dp"
             android:layout_height="8dp"
             android:layout_marginStart="28dp"
@@ -77,12 +95,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="36dp"
+        <ImageView
+            android:id="@+id/more_bapyak"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="21dp"
+            android:src="@drawable/more_button"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView4" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="380dp"
+            android:layout_height="280dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/home_layout"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/spb"
+                android:text="최근 게시물"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recent_bapyak"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     <include layout="@layout/activity_navigation" />
 </androidx.drawerlayout.widget.DrawerLayout>
