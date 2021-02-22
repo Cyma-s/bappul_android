@@ -55,6 +55,7 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
     private ImageView moreReview;
     private double lat, lon;
     private String name;
+    private TextView home, my_writing, to_restaurant, promise, logout;
 
     List<Marker> previous_marker = new ArrayList<>();
     GoogleMap mMap;
@@ -96,6 +97,49 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
+            }
+        });
+        home = (TextView) findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_home = new Intent(GMap.this, HomeActivity.class);
+                startActivity(intent_home);
+            }
+        });
+        my_writing = (TextView) findViewById(R.id.my_writing);
+        my_writing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_mypage = new Intent(GMap.this, MyPage.class);
+                startActivity(intent_mypage);
+            }
+        });
+        to_restaurant = (TextView) findViewById(R.id.to_restaurant);
+        to_restaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map_layout.closeDrawer(navigation);
+            }
+        });
+        promise = (TextView) findViewById(R.id.promise);
+        promise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_list = new Intent(GMap.this, BapyakListActivity.class);
+                startActivity(intent_list);
+            }
+        });
+        logout = (TextView) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Authorization", "");
+                editor.apply();
+                Intent intent_main = new Intent(GMap.this, MainActivity.class);
+                startActivity(intent_main);
             }
         });
 

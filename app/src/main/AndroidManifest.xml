@@ -16,6 +16,8 @@
         <activity android:name=".BapyakContentActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".BapyakListActivity" />
+        <activity android:name=".MyPage"/>
+        <activity android:name=".bapyak_write"/>
         <activity android:name=".ReviewWriteActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".GMap" />
