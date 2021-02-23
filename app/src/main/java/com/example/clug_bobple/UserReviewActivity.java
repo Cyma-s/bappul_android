@@ -44,9 +44,8 @@ public class UserReviewActivity extends AppCompatActivity {
     double lat, lon;
     String name;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reviews);
 
@@ -56,7 +55,7 @@ public class UserReviewActivity extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onBackPressed();
             }
         });
 
@@ -71,6 +70,8 @@ public class UserReviewActivity extends AppCompatActivity {
         lon = intent.getDoubleExtra("lon", 0);
         name = intent.getStringExtra("name");
 
+        adapter.clear();
+        adapter.notifyDataSetChanged();
 
         JSONObject reviewItems = new JSONObject();
         try {
@@ -81,7 +82,7 @@ public class UserReviewActivity extends AppCompatActivity {
         }
 
         url = getString(R.string.url) + "/restaurant/" + name + "/reviews/" + Integer.toString(cnt);
-        Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
         RequestQueue queue = Volley.newRequestQueue(UserReviewActivity.this);
 
 
@@ -124,7 +125,7 @@ public class UserReviewActivity extends AppCompatActivity {
 
                 if (!recyclerView.canScrollVertically(1)){
                     url = getString(R.string.url) + "/restaurant/" + name + "/reviews/" + Integer.toString(cnt);
-                    Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(UserReviewActivity.this, url, Toast.LENGTH_SHORT).show();
 
                     if (len == 0){
                         //Toast.makeText(UserReviewActivity.this, "마지막 리뷰입니다.", Toast.LENGTH_SHORT).show();

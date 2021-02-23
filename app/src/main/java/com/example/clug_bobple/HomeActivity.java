@@ -117,6 +117,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent_gmap = new Intent(HomeActivity.this, GMap.class);
+                finish();
                 startActivity(intent_gmap);
             }
         });
@@ -132,6 +133,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent_mypage = new Intent(HomeActivity.this, MyPage.class);
+                finish();
                 startActivity(intent_mypage);
             }
         });
@@ -140,6 +142,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent_review = new Intent(HomeActivity.this, GMap.class);
+                finish();
                 startActivity(intent_review);
             }
         });
@@ -148,6 +151,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent_list = new Intent(HomeActivity.this, BapyakListActivity.class);
+                finish();
                 startActivity(intent_list);
             }
         });
@@ -175,7 +179,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent_map = new Intent(HomeActivity.this, GMap.class);
-                //finish();
+                finish();
                 startActivity(intent_map);
             }
         });
@@ -300,6 +304,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
         queue.add(jsonArrayRequest);
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

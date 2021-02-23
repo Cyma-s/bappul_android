@@ -194,7 +194,7 @@ public class MyPage extends AppCompatActivity {
                             String user = response.get("name").toString();
                             user_name.setText(user);
 
-                            Toast.makeText(MyPage.this, Integer.toString(len), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MyPage.this, Integer.toString(len), Toast.LENGTH_LONG).show();
                             //Toast.makeText(BapyakListActivity.this, posts.toString(), Toast.LENGTH_LONG).show();
 
 
@@ -240,7 +240,7 @@ public class MyPage extends AppCompatActivity {
 
                 if (!recyclerView.canScrollVertically(1)){
                     url = getString(R.string.url) + "/mypage/my_bapyaks/" + Integer.toString(cnt);
-                    Toast.makeText(MyPage.this, url, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MyPage.this, url, Toast.LENGTH_SHORT).show();
 
                     if (len == 0){
                         //Toast.makeText(UserReviewActivity.this, "마지막 리뷰입니다.", Toast.LENGTH_SHORT).show();
@@ -277,7 +277,7 @@ public class MyPage extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(MyPage.this, "마지막 리뷰입니다.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MyPage.this, "마지막 글입니다.", Toast.LENGTH_SHORT).show();
                             }
                         }) {
                             @Override

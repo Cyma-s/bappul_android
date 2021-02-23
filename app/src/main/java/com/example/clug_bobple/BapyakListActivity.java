@@ -264,7 +264,7 @@ public class BapyakListActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
         String token = sharedPreferences.getString("Authorization", "");
         url = getString(R.string.url) + "/bapyak/" + post_type + "/" + Integer.toString(cnt) + "?gender=" + gender + "&major=" + major;
-        Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_LONG).show();
+        //Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(BapyakListActivity.this);
 
         jsonRequest(queue, adapter, token);
@@ -285,7 +285,7 @@ public class BapyakListActivity extends AppCompatActivity {
                             len = (int) response.get("length");
                             JSONArray posts =  response.getJSONArray("bapyaks");
 
-                            Toast.makeText(BapyakListActivity.this, Integer.toString(len), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(BapyakListActivity.this, Integer.toString(len), Toast.LENGTH_LONG).show();
                             //Toast.makeText(BapyakListActivity.this, posts.toString(), Toast.LENGTH_LONG).show();
 
 
@@ -333,7 +333,7 @@ public class BapyakListActivity extends AppCompatActivity {
                     } else {
                         url = getString(R.string.url) + "/bapyak/" + post_type + "/" + Integer.toString(cnt) + "?gender=" + gender + "&major=" + major;
                     }
-                    Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_SHORT).show();
 
                     if (len == 0){
                         //Toast.makeText(UserReviewActivity.this, "마지막 리뷰입니다.", Toast.LENGTH_SHORT).show();
@@ -391,7 +391,7 @@ public class BapyakListActivity extends AppCompatActivity {
                             BapyakAdapter adapter) {
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
         String token = sharedPreferences.getString("Authorization", "");
-        Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_LONG).show();
+        //Toast.makeText(BapyakListActivity.this, url, Toast.LENGTH_LONG).show();
         RequestQueue queue = Volley.newRequestQueue(BapyakListActivity.this);
 
         jsonRequest(queue, adapter, token);

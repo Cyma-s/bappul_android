@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> implements OnHomeItemClickListener{
     private ArrayList<Recent> homedata = new ArrayList<Recent>();
+    OnHomeItemClickListener listener;
 
     @NonNull
     @Override
@@ -54,10 +55,37 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
     }
 
+    public Recent getItem(int position){
+        return homedata.get(position);
+    }
+
+    public void setItem(int position, Recent item){
+        homedata.set(position, item);
+    }
+
     public HomeAdapter(ArrayList<Recent> homedata) {
         this.homedata = homedata;
     }
     public void addItem(Recent recent) {
         homedata.add(recent);
+    }
+
+    public void setOnItemClicklistener(OnHomeItemClickListener listener){
+        this.listener = listener;
+    }
+
+    @Override
+    public void onItemClick(ViewHolder holder, View view, int position) {
+        if (listener != null){
+            listener.onItemClick(holder, view, position);
+        }
+    }
+
+    public ArrayList<Recent> getHomedata() {
+        return homedata;
+    }
+
+    public void setHomedata(ArrayList<Recent> homedata) {
+        this.homedata = homedata;
     }
 }

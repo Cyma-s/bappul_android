@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent_login = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent_login);
                 finish();
+                startActivity(intent_login);
             }
         });
 

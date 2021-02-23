@@ -144,7 +144,7 @@ public class BapyakContentActivity extends AppCompatActivity {
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
-                Toast.makeText(BapyakContentActivity.this, postJson.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(BapyakContentActivity.this, postJson.toString(), Toast.LENGTH_LONG).show();
 
                 comment.setText(null);
 
@@ -189,7 +189,7 @@ public class BapyakContentActivity extends AppCompatActivity {
                                     adapter.notifyDataSetChanged();
                                     recyclerView.setAdapter(adapter);
                                     comments_num.setText(Integer.toString(len));
-                                    Toast.makeText(BapyakContentActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(BapyakContentActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                                 } catch (JSONException e){
                                     e.printStackTrace();
                                 }
@@ -211,7 +211,7 @@ public class BapyakContentActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
         finish();
     }
 }

@@ -109,4 +109,15 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             star_rate.setRating(review.getStar_rate());
         }
     }
+
+    public void clear(){
+        int size = reviews.size();
+        if (size > 0){
+            for (int i= 0; i<size; i++){
+                reviews.remove(0);
+            }
+
+            notifyItemRangeRemoved(0, size);
+        }
+    }
 }

@@ -34,4 +34,6 @@ public class Recent {
     public void setHome_content(String home_content) {
         this.home_content = home_content;
     }
+
+
 }

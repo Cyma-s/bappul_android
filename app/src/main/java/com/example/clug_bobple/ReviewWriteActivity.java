@@ -92,7 +92,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
                 RequestQueue queue = Volley.newRequestQueue(ReviewWriteActivity.this);
                 String url = getString(R.string.url)+"/restaurant/"+restaurant_name+"/review";
-                Toast.makeText(ReviewWriteActivity.this, reviewJson.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ReviewWriteActivity.this, reviewJson.toString(), Toast.LENGTH_SHORT).show();
 
                 final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, reviewJson,
                         new Response.Listener<JSONObject>() {
@@ -103,7 +103,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ReviewWriteActivity.this, "오류입니다.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ReviewWriteActivity.this, "오류입니다.", Toast.LENGTH_SHORT).show();
                     }
                 }) {
                     @Override

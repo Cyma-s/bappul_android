@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Intent logIn = new Intent(LoginActivity.this, HomeActivity.class);
+                        finish();
                         startActivity(logIn);
                     }
                 }, new Response.ErrorListener() {
@@ -131,15 +132,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         //super.onBackPressed();
 
-        if (System.currentTimeMillis() > backKeyPressedTime + 2500){
-            backKeyPressedTime = System.currentTimeMillis();
-            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (System.currentTimeMillis() <= backKeyPressedTime + 2500){
-            finish();
-            Toast.makeText(this, "감사합니다 :)", Toast.LENGTH_LONG).show();
-        }
+        Intent back_intent = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(back_intent);
     }
 }
