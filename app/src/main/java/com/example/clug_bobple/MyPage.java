@@ -39,6 +39,8 @@ public class MyPage extends AppCompatActivity {
     private TextView edit;
     private TextView user_name;
     private View navigation;
+    String ent_year, drawer_name;
+    TextView entrance_drw, name_drw;
     private TextView home, my_writing, to_restaurant, promise, logout;
     private RecyclerView my_writing_rcv;
     @Override
@@ -48,70 +50,45 @@ public class MyPage extends AppCompatActivity {
 
         my_writing_rcv = (RecyclerView)findViewById(R.id.my_writing_rcv);
         mypage_layout = (DrawerLayout) findViewById(R.id.mypage_layout);
-        navigation = (View) findViewById(R.id.navigation);
-        menu_button = (ImageView) findViewById(R.id.menu_button);
-        user_name = (TextView) findViewById(R.id.user_name);
-        menu_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mypage_layout.openDrawer(navigation);
-            }
-        });
-        mypage_layout.setDrawerListener(listener);
-        navigation.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-        home = (TextView) findViewById(R.id.home);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_home = new Intent(MyPage.this, HomeActivity.class);
-                startActivity(intent_home);
-            }
-        });
-        my_writing = (TextView) findViewById(R.id.my_writing);
-        my_writing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mypage_layout.closeDrawer(navigation);
-            }
-        });
-        to_restaurant = (TextView) findViewById(R.id.to_restaurant);
-        to_restaurant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_review = new Intent(MyPage.this, GMap.class);
-                startActivity(intent_review);
-            }
-        });
-        promise = (TextView) findViewById(R.id.promise);
-        promise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_list = new Intent(MyPage.this, BapyakListActivity.class);
-                startActivity(intent_list);
-            }
-        });
-        logout = (TextView) findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Authorization", "");
-                editor.apply();
-                Intent intent_main = new Intent(MyPage.this, MainActivity.class);
-                startActivity(intent_main);
-            }
-        });
-
-
 
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
         String token = sharedPreferences.getString("Authorization", "");
+
+        RequestQueue token_queue = Volley.newRequestQueue(MyPage.this);
+
+        String profile_url = getString(R.string.url) + "/profile/info";
+
+        final JsonObjectRequest profileRequest = new JsonObjectRequest(Request.Method.GET, profile_url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            ent_year = response.get("entranceYear").toString();
+                            drawer_name = response.get("name").toString();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MyPage.this, "오류입니다.", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> heads = new HashMap<String, String>();
+                heads.put("Authorization", "Bearer " + token);
+                return heads;
+            }
+        };
+
+        token_queue.add(profileRequest);
+
+        name_drw = findViewById(R.id.user_name);
+        entrance_drw = findViewById(R.id.user_stdnum);
+
+
         RequestQueue queue = Volley.newRequestQueue(MyPage.this);
         url = getString(R.string.url) + "/mypage/my_bapyaks/" + Integer.toString(cnt);
 
@@ -138,6 +115,72 @@ public class MyPage extends AppCompatActivity {
         my_writing_rcv.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
+
+        navigation = (View) findViewById(R.id.navigation);
+        menu_button = (ImageView) findViewById(R.id.menu_button);
+        user_name = (TextView) findViewById(R.id.user_name_mypage);
+        menu_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mypage_layout.openDrawer(navigation);
+                name_drw.setText(drawer_name);
+                entrance_drw.setText(ent_year + "학번");
+            }
+        });
+        mypage_layout.setDrawerListener(listener);
+        navigation.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        home = (TextView) findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_home = new Intent(MyPage.this, HomeActivity.class);
+                finish();
+                startActivity(intent_home);
+            }
+        });
+        my_writing = (TextView) findViewById(R.id.my_writing);
+        my_writing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mypage_layout.closeDrawer(navigation);
+            }
+        });
+        to_restaurant = (TextView) findViewById(R.id.to_restaurant);
+        to_restaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_review = new Intent(MyPage.this, GMap.class);
+                finish();
+                startActivity(intent_review);
+            }
+        });
+        promise = (TextView) findViewById(R.id.promise);
+        promise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_list = new Intent(MyPage.this, BapyakListActivity.class);
+                finish();
+                startActivity(intent_list);
+            }
+        });
+        logout = (TextView) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Authorization", "");
+                editor.apply();
+                Intent intent_main = new Intent(MyPage.this, MainActivity.class);
+                finish();
+                startActivity(intent_main);
+            }
+        });
 
     }
     public void jsonRequest(RequestQueue queue, BapyakAdapter adapter, String token){

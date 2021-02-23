@@ -44,7 +44,7 @@ public class bapyak_write extends AppCompatActivity {
         title = findViewById(R.id.title);
         content = findViewById(R.id.content);
         bapyak_write_spinner = findViewById(R.id.bapyak_write_spinner);
-        back_button = findViewById(R.id.back_button);
+        back_button = findViewById(R.id.back_button_write);
         String[] items = getResources().getStringArray(R.array.bapyak_write);
 
         ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.spinner_item, items);
@@ -65,8 +65,8 @@ public class bapyak_write extends AppCompatActivity {
                 try {
                     sendToServer(title.getText().toString(), content.getText().toString());
                     Intent intent = new Intent(bapyak_write.this, BapyakListActivity.class);
-                    startActivity(intent);
                     finish();
+                    startActivity(intent);
                 } catch (JSONException exception) {
                     exception.printStackTrace();
                 }
@@ -95,8 +95,7 @@ public class bapyak_write extends AppCompatActivity {
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent posting = new Intent(bapyak_write.this, HomeActivity.class);
-                        startActivity(posting);
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -116,7 +115,7 @@ public class bapyak_write extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
         finish();
     }
 }

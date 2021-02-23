@@ -46,7 +46,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
         review_content = findViewById(R.id.review_content);
         star_bar = findViewById(R.id.star_bar);
-        back_button = findViewById(R.id.back_button);
+        back_button = findViewById(R.id.back_button_write);
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,12 +98,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(ReviewWriteActivity.this, UserReviewActivity.class);
-                        intent.putExtra("name", restaurant_name);
-                        intent.putExtra("lat", lat);
-                        intent.putExtra("lon", lon);
-                        setResult(0, intent);
-                        finish();
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -121,13 +116,19 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
                 queue.add(jsonObjectRequest);
 
+                Intent intent1 = new Intent();
+                intent1.putExtra("name", restaurant_name);
+                intent1.putExtra("lat", lat);
+                intent1.putExtra("lon", lon);
+                setResult(0, intent1);
+                finish();
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
         finish();
     }
 }

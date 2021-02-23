@@ -44,23 +44,6 @@ public class UserReviewActivity extends AppCompatActivity {
     double lat, lon;
     String name;
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode){
-            case 0:
-                Intent intent = getIntent();
-                name = intent.getStringExtra("name");
-                lon = intent.getDoubleExtra("lon", 0);
-                lat = intent.getDoubleExtra("lat", 0);
-                finish();
-                intent.putExtra("name", name);
-                intent.putExtra("lon", lon);
-                intent.putExtra("lat", lat);
-                startActivity(intent);
-        }
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -204,6 +187,7 @@ public class UserReviewActivity extends AppCompatActivity {
                 intent1.putExtra("lon", lon);
                 intent1.putExtra("lat", lat);
                 intent1.putExtra("restaurant", name);
+                //finish();
                 startActivityForResult(intent1, 0);
             }
         });
@@ -213,8 +197,25 @@ public class UserReviewActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent1 = new Intent(UserReviewActivity.this, ReviewWriteActivity.class);
-        startActivity(intent1);
+        Intent intent2 = new Intent(this, GMap.class);
         finish();
+        startActivity(intent2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case 0:
+                Intent intent3 = getIntent();
+                name = intent3.getStringExtra("name");
+                lon = intent3.getDoubleExtra("lon", 0);
+                lat = intent3.getDoubleExtra("lat", 0);
+                intent3.putExtra("name", name);
+                intent3.putExtra("lon", lon);
+                intent3.putExtra("lat", lat);
+                finish();
+                startActivity(intent3);
+        }
     }
 }

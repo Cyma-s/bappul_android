@@ -253,8 +253,8 @@ public class BapyakListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(BapyakListActivity.this, bapyak_write.class);
-                startActivity(intent1);
                 finish();
+                startActivity(intent1);
             }
         });
     }
@@ -414,7 +414,9 @@ public class BapyakListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
         finish();
+        startActivity(intent);
     }
 }

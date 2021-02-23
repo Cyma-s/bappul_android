@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">CLUG_Bobple</string>
-    <string name="url">http://af9139932eb0.ngrok.io</string>
+    <string name="url">http://ec2-52-78-112-219.ap-northeast-2.compute.amazonaws.com:3000</string>
 </resources>

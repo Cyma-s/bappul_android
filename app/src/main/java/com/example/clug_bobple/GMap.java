@@ -56,6 +56,8 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
     private double lat, lon;
     private String name;
     private TextView home, my_writing, to_restaurant, promise, logout;
+    String ent_year, drawer_name;
+    TextView entrance_drw, name_drw;
 
     List<Marker> previous_marker = new ArrayList<>();
     GoogleMap mMap;
@@ -67,6 +69,39 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+        String token = sharedPreferences.getString("Authorization", "");
+        RequestQueue token_queue = Volley.newRequestQueue(GMap.this);
+
+        String profile_url = getString(R.string.url) + "/profile/info";
+
+        final JsonObjectRequest profileRequest = new JsonObjectRequest(Request.Method.GET, profile_url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            ent_year = response.get("entranceYear").toString();
+                            drawer_name = response.get("name").toString();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(GMap.this, "오류입니다.", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> heads = new HashMap<String, String>();
+                heads.put("Authorization", "Bearer " + token);
+                return heads;
+            }
+        };
+
+        token_queue.add(profileRequest);
+
         fragmentManager = getFragmentManager();
         mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -74,6 +109,9 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
         map_layout = (DrawerLayout)findViewById(R.id.map_layout);
         navigation = (View)findViewById(R.id.navigation);
         moreReview = (ImageView)findViewById(R.id.moreReview);
+        name_drw = findViewById(R.id.user_name);
+        entrance_drw = findViewById(R.id.user_stdnum);
+
         moreReview.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -81,6 +119,7 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                 intent.putExtra("lat", lat);
                 intent.putExtra("lon", lon);
                 intent.putExtra("name", name);
+                finish();
                 startActivity(intent);
             }
         });
@@ -89,6 +128,8 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
             @Override
             public void onClick(View v) {
                 map_layout.openDrawer(navigation);
+                name_drw.setText(drawer_name);
+                entrance_drw.setText(ent_year+"학번");
             }
         });
 
@@ -104,6 +145,7 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
             @Override
             public void onClick(View v) {
                 Intent intent_home = new Intent(GMap.this, HomeActivity.class);
+                finish();
                 startActivity(intent_home);
             }
         });
@@ -112,6 +154,7 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
             @Override
             public void onClick(View v) {
                 Intent intent_mypage = new Intent(GMap.this, MyPage.class);
+                finish();
                 startActivity(intent_mypage);
             }
         });
@@ -127,6 +170,7 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
             @Override
             public void onClick(View v) {
                 Intent intent_list = new Intent(GMap.this, BapyakListActivity.class);
+                finish();
                 startActivity(intent_list);
             }
         });
@@ -139,6 +183,7 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
                 editor.putString("Authorization", "");
                 editor.apply();
                 Intent intent_main = new Intent(GMap.this, MainActivity.class);
+                finish();
                 startActivity(intent_main);
             }
         });
@@ -311,5 +356,13 @@ public class GMap extends AppCompatActivity implements OnMapReadyCallback, Activ
             }
         });
         queue.add(jsonObjectRequest);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent back_intent = new Intent(this, HomeActivity.class);
+        finish();
+        startActivity(back_intent);
     }
 }

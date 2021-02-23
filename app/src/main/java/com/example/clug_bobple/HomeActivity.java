@@ -66,6 +66,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     RecyclerView recyclerView;
     private DrawerLayout home_layout;
     private View navigation;
+    String ent_year, drawer_name;
+    TextView entrance_drw, name_drw;
     private ImageView menu_button;
     private ConstraintLayout mapp;
     private TextView mapintent;
@@ -78,6 +80,37 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
         String token = sharedPreferences.getString("Authorization", "");
         RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
+        RequestQueue token_queue = Volley.newRequestQueue(HomeActivity.this);
+
+        String profile_url = getString(R.string.url) + "/profile/info";
+
+        final JsonObjectRequest profileRequest = new JsonObjectRequest(Request.Method.GET, profile_url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            ent_year = response.get("entranceYear").toString();
+                            drawer_name = response.get("name").toString();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(HomeActivity.this, "오류입니다.", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> heads = new HashMap<String, String>();
+                heads.put("Authorization", "Bearer " + token);
+                return heads;
+            }
+        };
+
+        token_queue.add(profileRequest);
+
 
         mapp = (ConstraintLayout)findViewById(R.id.mapp);
         mapp.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +160,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                 editor.putString("Authorization", "");
                 editor.apply();
                 Intent intent_main = new Intent(HomeActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent_main);
             }
         });
@@ -141,6 +175,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent_map = new Intent(HomeActivity.this, GMap.class);
+                //finish();
                 startActivity(intent_map);
             }
         });
@@ -182,11 +217,16 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         navigation = (View)findViewById(R.id.navigation);
         menu_button = (ImageView)findViewById(R.id.menu_button);
         more_button = (ImageView)findViewById(R.id.more_bapyak);
+        name_drw = findViewById(R.id.user_name);
+        entrance_drw = findViewById(R.id.user_stdnum);
+
 
         menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 home_layout.openDrawer(navigation);
+                name_drw.setText(drawer_name);
+                entrance_drw.setText(ent_year+"학번");
             }
         });
 
@@ -194,6 +234,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, BapyakListActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -240,8 +281,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onResponse(JSONArray response) {
                         try {
                             //Toast.makeText(BapyakListActivity.this, posts.toString(), Toast.LENGTH_LONG).show();
-
-                            for (int i = 0; i < 5; i++) {
+                            int obj_len = response.length();
+                            for (int i = 0; i < obj_len; i++) {
                                 JSONObject object = response.getJSONObject(i);
                                 adapter.addItem(new Recent(object.get("title").toString(), object.get("content").toString(), object.get("userName").toString()));
                             }
