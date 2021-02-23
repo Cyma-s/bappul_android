@@ -60,14 +60,16 @@ public class EmailAuthenticationActivity  extends AppCompatActivity {
 
                 address = email_address_text.getText().toString();
 
-                if (Pattern.matches("^[a-zA-Z0-9]+@[cau.ac.kr]+$", address)) {
-                    auth_number_text.setVisibility(View.VISIBLE);
-                    auth_number.setVisibility(View.VISIBLE);
-                    auth_button.setVisibility(View.VISIBLE);
+                auth_number_text.setVisibility(View.VISIBLE);
+                auth_number.setVisibility(View.VISIBLE);
+                auth_button.setVisibility(View.VISIBLE);
 
-                    SendMail mailServer = new SendMail();
-                    mailServer.sendSecurityCode(getApplicationContext(), address);
-                    code = mailServer.getCode();
+                SendMail mailServer = new SendMail();
+                mailServer.sendSecurityCode(getApplicationContext(), address);
+                code = mailServer.getCode();
+
+                if (Pattern.matches("^[a-zA-Z0-9]+@[cau.ac.kr]+$", address)) {
+
                 } else{
                     Toast.makeText(EmailAuthenticationActivity.this, "중앙대학교 이메일 주소가 아닙니다.", Toast.LENGTH_LONG).show();
                 }
