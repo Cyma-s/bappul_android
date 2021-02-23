@@ -124,4 +124,22 @@ public class LoginActivity extends AppCompatActivity {
         };
         queue.add(jsonObjectRequest);
     }
+
+    private long backKeyPressedTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500){
+            backKeyPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500){
+            finish();
+            Toast.makeText(this, "감사합니다 :)", Toast.LENGTH_LONG).show();
+        }
+    }
 }

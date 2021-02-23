@@ -35,7 +35,7 @@ public class BapyakContentActivity extends AppCompatActivity {
     TextView entrance_year, user_name, date, title, content, comments_num;
     RecyclerView recyclerView;
     EditText comment;
-    ImageView send;
+    ImageView send, back_button;
     String url;
     int len;
 
@@ -62,7 +62,14 @@ public class BapyakContentActivity extends AppCompatActivity {
         comments_num = findViewById(R.id.comments_num);
         comment = findViewById(R.id.comment);
         send = findViewById(R.id.send_button);
+        back_button = findViewById(R.id.back_button);
 
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         String content_url = getString(R.string.url) + "/bapyak/"+content_id;
@@ -200,5 +207,11 @@ public class BapyakContentActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

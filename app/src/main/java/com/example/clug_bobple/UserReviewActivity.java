@@ -37,7 +37,7 @@ import org.json.JSONObject;
 
 public class UserReviewActivity extends AppCompatActivity {
     int len, cnt = 1, sum = 0;
-    ImageView more_review_db;
+    ImageView more_review_db, back_button;
     String url;
     //int mScrollPosition;
     FloatingActionButton review_add_button;
@@ -68,6 +68,14 @@ public class UserReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_reviews);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        back_button = findViewById(R.id.back_button);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -200,6 +208,13 @@ public class UserReviewActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent1 = new Intent(UserReviewActivity.this, ReviewWriteActivity.class);
+        startActivity(intent1);
+        finish();
     }
 }

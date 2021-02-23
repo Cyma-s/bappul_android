@@ -55,6 +55,7 @@ public class EmailAuthenticationActivity  extends AppCompatActivity {
                     Intent intent_sign_up = new Intent(EmailAuthenticationActivity.this, Sign_upActivity.class);
                     intent_sign_up.putExtra("address", "testAdmin@cau.ac.kr");
                     startActivity(intent_sign_up);
+                    finish();
                 }
 
                 address = email_address_text.getText().toString();

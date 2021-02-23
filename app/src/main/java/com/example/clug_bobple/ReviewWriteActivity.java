@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class ReviewWriteActivity extends AppCompatActivity {
 
-    ImageView review_write_button;
+    ImageView review_write_button, back_button;
     EditText review_content;
     RatingBar star_bar;
     int star_num;
@@ -46,6 +46,14 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
         review_content = findViewById(R.id.review_content);
         star_bar = findViewById(R.id.star_bar);
+        back_button = findViewById(R.id.back_button);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         review_write_button = findViewById(R.id.review_write_button);
         review_write_button.setOnClickListener(new View.OnClickListener() {
@@ -115,5 +123,11 @@ public class ReviewWriteActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

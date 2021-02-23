@@ -32,7 +32,7 @@ public class bapyak_write extends AppCompatActivity {
     private EditText title;
     private EditText content;
     private ImageView back_button_write;
-    private ImageView review_write_button;
+    private ImageView review_write_button, back_button;
     private Spinner bapyak_write_spinner;
     private SpinnerAdapter adapter;
 
@@ -44,11 +44,19 @@ public class bapyak_write extends AppCompatActivity {
         title = findViewById(R.id.title);
         content = findViewById(R.id.content);
         bapyak_write_spinner = findViewById(R.id.bapyak_write_spinner);
+        back_button = findViewById(R.id.back_button);
         String[] items = getResources().getStringArray(R.array.bapyak_write);
 
         ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.spinner_item, items);
         adapter.setDropDownViewResource(R.layout.spinner_item);
         bapyak_write_spinner.setAdapter(adapter);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         review_write_button = findViewById(R.id.review_write_button);
         review_write_button.setOnClickListener(new View.OnClickListener() {
@@ -104,5 +112,11 @@ public class bapyak_write extends AppCompatActivity {
             }
         };
         queue.add(jsonObjectRequest);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

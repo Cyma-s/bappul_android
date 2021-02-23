@@ -47,7 +47,7 @@ public class BapyakListActivity extends AppCompatActivity {
     String post_type, gender, major;
     Spinner type_clsfc, gender_clsfc, major_clsfc;
     FloatingActionButton post_add_button;
-    ImageView bapyak_search, bapyak_search_button;
+    ImageView bapyak_search, bapyak_search_button, back_button;
     EditText search_content;
     RecyclerView recyclerView;
     int type_clsfc_num = 0, gender_clsfc_num = 0, major_clsfc_num = 0;
@@ -65,6 +65,14 @@ public class BapyakListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.bapyak_recyclerview);
         bapyak_search_button = findViewById(R.id.bapyak_search_button);
         search_content = findViewById(R.id.search_content);
+        back_button = findViewById(R.id.back_button);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -402,5 +410,11 @@ public class BapyakListActivity extends AppCompatActivity {
         type_adapter.notifyDataSetChanged();
         gender_adapter.notifyDataSetChanged();
         major_adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
