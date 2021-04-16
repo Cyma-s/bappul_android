@@ -7,5 +7,6 @@ bappul_ttaegi
 
 bappul function
 ===============
-* find delicious restaurants.
-* find senior at school by writing post.
+* find restaurants that sell delicious food around the school.
+* find senior(or junior) at school by writing post.
+* for CAU students.
